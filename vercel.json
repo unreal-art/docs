@@ -1,0 +1,12 @@
+{
+	"version": 2,
+	"framework": "nextjs",
+	"buildCommand": "cp .env.example .env && bun run build",
+	"installCommand": "bun install",
+	"devCommand": "bun run dev",
+	"public": true,
+	"outputDirectory": ".vercel/output",
+	"build": {
+		"env": {}
+	}
+}
