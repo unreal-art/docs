@@ -1,13 +1,62 @@
 ---
-title: Hello World
-description: Your first document
+title: OpenRouter AI Documentation
+description: Documentation for OpenRouter AI API (OpenAI SDK compatible)
 ---
 
-Welcome to the docs! You can start writing documents in `/content/docs`.
+# OpenRouter AI Documentation
 
-## What is Next?
+Welcome to the OpenRouter AI documentation. This documentation provides comprehensive information about the OpenRouter AI API, which is compatible with the OpenAI SDK.
 
-<Cards>
-  <Card title="Learn more about Next.js" href="https://nextjs.org/docs" />
-  <Card title="Learn more about Fumadocs" href="https://fumadocs.vercel.app" />
-</Cards>
+## Getting Started
+
+OpenRouter AI provides a compatible interface with the OpenAI SDK, allowing you to easily integrate with your existing applications that use the OpenAI SDK.
+
+### Installation
+
+You can use the OpenAI SDK to interact with OpenRouter:
+
+```bash
+# Using npm
+npm install openai
+
+# Using yarn
+yarn add openai
+
+# Using bun
+bun add openai
+```
+
+### Quick Start
+
+```typescript
+import { OpenAI } from 'openai';
+
+const openai = new OpenAI({
+  apiKey: 'your-api-key',
+  baseURL: 'https://openrouter.ai/api', // Replace with your OpenRouter endpoint
+});
+
+async function main() {
+  const completion = await openai.chat.completions.create({
+    model: 'model-name',
+    messages: [
+      { role: 'system', content: 'You are a helpful assistant.' },
+      { role: 'user', content: 'Hello, how are you?' }
+    ],
+  });
+
+  console.log(completion.choices[0].message);
+}
+
+main();
+```
+
+## API Reference
+
+Check out our [API Reference](/docs/api) for detailed information about all available endpoints and how to use them.
+
+## Features
+
+- **OpenAI SDK Compatibility**: Use the OpenAI SDK to interact with OpenRouter
+- **Multiple Models**: Access various AI models through a single API
+- **Simple Integration**: Easy to integrate with existing applications

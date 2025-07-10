@@ -1,0 +1,57 @@
+---
+title: System Endpoints
+description: API reference for System endpoints
+---
+
+# System Endpoints
+
+## Health check endpoint
+
+`GET /health`
+
+Returns health status for all configured providers
+
+### Responses
+
+#### 200 - Health status for all providers
+
+```json
+{
+  "type": "object",
+  "properties": {
+    "status": {
+      "type": "string",
+      "description": "Overall API status",
+      "example": "ok"
+    },
+    "nearai": {
+      "type": "object",
+      "properties": {
+        "healthy": {
+          "type": "boolean",
+          "description": "Whether the provider is healthy"
+        },
+        "message": {
+          "type": "object",
+          "description": "Health check response or error message"
+        }
+      }
+    }
+  }
+}
+```
+
+---
+
+## Root endpoint
+
+`GET /`
+
+Returns a welcome message from the Unreal OpenAI Router
+
+### Responses
+
+#### 200 - Welcome message
+
+---
+

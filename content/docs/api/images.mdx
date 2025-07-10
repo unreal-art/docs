@@ -1,0 +1,84 @@
+---
+title: Images Endpoints
+description: API reference for Images endpoints
+---
+
+# Images Endpoints
+
+## Create images
+
+`POST /v1/images/generations`
+
+Creates an image given a prompt
+
+### Responses
+
+#### 200 - Successful image generation
+
+```json
+{
+  "type": "object",
+  "properties": {
+    "created": {
+      "type": "number",
+      "description": "Unix timestamp of when the request was created"
+    },
+    "data": {
+      "type": "array",
+      "description": "Array of generated image data",
+      "items": {
+        "type": "object",
+        "properties": {
+          "url": {
+            "type": "string",
+            "description": "URL to the generated image"
+          },
+          "b64_json": {
+            "type": "string",
+            "description": "Base64-encoded JSON of the generated image"
+          },
+          "revised_prompt": {
+            "type": "string",
+            "description": "The prompt that was used to generate the image, potentially modified from the original"
+          }
+        }
+      }
+    }
+  }
+}
+```
+
+#### 401 - Unauthorized - invalid or missing authentication
+
+```json
+{
+  "type": "object",
+  "properties": {
+    "error": {
+      "type": "string",
+      "description": "Error message"
+    }
+  }
+}
+```
+
+#### 500 - Server error
+
+```json
+{
+  "type": "object",
+  "properties": {
+    "error": {
+      "type": "string",
+      "description": "Error message"
+    },
+    "message": {
+      "type": "string",
+      "description": "Error details"
+    }
+  }
+}
+```
+
+---
+
