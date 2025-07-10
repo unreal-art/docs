@@ -1,0 +1,999 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "Unreal's OpenAI Router API",
+    "version": "1.0.0",
+    "description": "API documentation for Unreal OpenAI Router"
+  },
+  "paths": {
+    "/v1/chat/completions": {
+      "post": {
+        "summary": "Create chat completion",
+        "description": "Creates a completion for the chat message",
+        "tags": [
+          "Chat"
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful completion",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "string",
+                      "description": "Unique identifier for the completion"
+                    },
+                    "object": {
+                      "type": "string",
+                      "description": "Object type",
+                      "example": "chat.completion"
+                    },
+                    "created": {
+                      "type": "number",
+                      "description": "Unix timestamp of creation"
+                    },
+                    "model": {
+                      "type": "string",
+                      "description": "Model used for completion"
+                    },
+                    "choices": {
+                      "type": "array",
+                      "description": "Array of completion choices",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "index": {
+                            "type": "number",
+                            "description": "Index of the choice"
+                          },
+                          "message": {
+                            "type": "object",
+                            "properties": {
+                              "role": {
+                                "type": "string",
+                                "description": "Role of the message sender",
+                                "example": "assistant"
+                              },
+                              "content": {
+                                "type": "string",
+                                "description": "Content of the message"
+                              }
+                            }
+                          },
+                          "finish_reason": {
+                            "type": "string",
+                            "enum": [
+                              "stop",
+                              "length",
+                              "function_call",
+                              "content_filter"
+                            ],
+                            "description": "Reason for finishing generation"
+                          }
+                        }
+                      }
+                    },
+                    "usage": {
+                      "type": "object",
+                      "properties": {
+                        "prompt_tokens": {
+                          "type": "number",
+                          "description": "Number of tokens in the prompt"
+                        },
+                        "completion_tokens": {
+                          "type": "number",
+                          "description": "Number of tokens in the completion"
+                        },
+                        "total_tokens": {
+                          "type": "number",
+                          "description": "Total number of tokens used"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized - invalid or missing authentication",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string",
+                      "description": "Error message"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden - insufficient permissions",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string",
+                      "description": "Error message"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string",
+                      "description": "Error message"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/auth/register": {
+      "post": {
+        "summary": "Register for API access",
+        "description": "Register a wallet for API access by providing a signed payload and optional permit",
+        "tags": [
+          "Authentication"
+        ],
+        "responses": {
+          "201": {
+            "description": "Successfully registered",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "permitTxHash": {
+                      "type": "string",
+                      "description": "Transaction hash for permit execution"
+                    },
+                    "token": {
+                      "type": "string",
+                      "description": "Bearer token for API authentication"
+                    },
+                    "walletAddress": {
+                      "type": "string",
+                      "description": "User wallet address"
+                    },
+                    "calls": {
+                      "type": "number",
+                      "description": "Number of API calls allocated"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request - invalid payload, signature, or address",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string",
+                      "description": "Error message"
+                    },
+                    "details": {
+                      "type": "string",
+                      "description": "Additional error details"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized - signature verification failed",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string",
+                      "description": "Error message"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "402": {
+            "description": "Payment required - insufficient token balance or allowance",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string",
+                      "description": "Error message"
+                    },
+                    "requiredBalance": {
+                      "type": "string",
+                      "description": "Required token balance"
+                    },
+                    "balance": {
+                      "type": "string",
+                      "description": "Current token balance"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string",
+                      "description": "Error message"
+                    },
+                    "details": {
+                      "type": "string",
+                      "description": "Error details"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/auth/verify": {
+      "get": {
+        "summary": "Verify API token",
+        "description": "Verify an API token and return associated wallet information",
+        "tags": [
+          "Authentication"
+        ],
+        "responses": {
+          "200": {
+            "description": "Token verification successful",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "wallet": {
+                      "type": "string",
+                      "description": "User wallet address"
+                    },
+                    "calls": {
+                      "type": "number",
+                      "description": "Number of API calls remaining"
+                    },
+                    "originalJwt": {
+                      "type": [
+                        "string",
+                        "null"
+                      ],
+                      "description": "Original JWT if applicable"
+                    },
+                    "paymentToken": {
+                      "type": "string",
+                      "description": "Payment token address"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request - missing token",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string",
+                      "description": "Error message"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Token not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string",
+                      "description": "Error message"
+                    },
+                    "token": {
+                      "type": "string",
+                      "description": "Token that was not found"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/auth/address": {
+      "get": {
+        "summary": "Get OpenAI service address",
+        "description": "Returns the OpenAI service wallet address and chain information",
+        "tags": [
+          "Authentication"
+        ],
+        "responses": {
+          "200": {
+            "description": "OpenAI service address information",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "address": {
+                      "type": "string",
+                      "description": "OpenAI service wallet address",
+                      "example": "0x1234567890abcdef1234567890abcdef12345678"
+                    },
+                    "chain": {
+                      "type": "object",
+                      "properties": {
+                        "id": {
+                          "type": "number",
+                          "description": "Chain ID",
+                          "example": 1
+                        },
+                        "name": {
+                          "type": "string",
+                          "description": "Chain name",
+                          "example": "Ethereum"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string",
+                      "description": "Error message",
+                      "example": "System Error: OPENAI Address not set"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/keys": {
+      "post": {
+        "summary": "Create API key",
+        "description": "Creates a new API key for the authenticated wallet",
+        "tags": [
+          "API Keys"
+        ],
+        "responses": {
+          "200": {
+            "description": "API key created successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "key": {
+                      "type": "string",
+                      "description": "The API key"
+                    },
+                    "hash": {
+                      "type": "string",
+                      "description": "Hash of the API key"
+                    },
+                    "state": {
+                      "type": "object",
+                      "properties": {
+                        "wallet": {
+                          "type": "string",
+                          "description": "Wallet address associated with the key"
+                        },
+                        "name": {
+                          "type": "string",
+                          "description": "Name of the API key"
+                        },
+                        "calls": {
+                          "type": "number",
+                          "description": "Number of calls remaining"
+                        },
+                        "updatedAt": {
+                          "type": "number",
+                          "description": "Last update timestamp"
+                        },
+                        "paymentToken": {
+                          "type": "string",
+                          "description": "Payment token address"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request - missing name or invalid limit",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string",
+                      "description": "Error message"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "402": {
+            "description": "Payment required",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string",
+                      "description": "Error message"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Too many API keys",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string",
+                      "description": "Error message"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "get": {
+        "summary": "Get all API keys",
+        "description": "Returns all API keys for the authenticated wallet",
+        "tags": [
+          "API Keys"
+        ],
+        "responses": {
+          "200": {
+            "description": "List of API keys",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "keys": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      },
+                      "description": "List of API keys"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string",
+                      "description": "Error message"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/keys/:key": {
+      "get": {
+        "summary": "Get API key details",
+        "description": "Returns details for a specific API key",
+        "tags": [
+          "API Keys"
+        ],
+        "responses": {
+          "200": {
+            "description": "API key details",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "wallet": {
+                      "type": "string",
+                      "description": "Wallet address associated with the key"
+                    },
+                    "name": {
+                      "type": "string",
+                      "description": "Name of the API key"
+                    },
+                    "calls": {
+                      "type": "number",
+                      "description": "Number of calls remaining"
+                    },
+                    "updatedAt": {
+                      "type": "number",
+                      "description": "Last update timestamp"
+                    },
+                    "paymentToken": {
+                      "type": "string",
+                      "description": "Payment token address"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden - key does not belong to authenticated wallet",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string",
+                      "description": "Error message"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "API key not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string",
+                      "description": "Error message"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "summary": "Delete API key",
+        "description": "Deletes a specific API key",
+        "tags": [
+          "API Keys"
+        ],
+        "responses": {
+          "200": {
+            "description": "API key deleted successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "deleted": {
+                      "type": "boolean",
+                      "description": "Whether the key was successfully deleted"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden - key does not belong to authenticated wallet",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string",
+                      "description": "Error message"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "API key not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string",
+                      "description": "Error message"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/images/generations": {
+      "post": {
+        "summary": "Create images",
+        "description": "Creates an image given a prompt",
+        "tags": [
+          "Images"
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful image generation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "created": {
+                      "type": "number",
+                      "description": "Unix timestamp of when the request was created"
+                    },
+                    "data": {
+                      "type": "array",
+                      "description": "Array of generated image data",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "url": {
+                            "type": "string",
+                            "description": "URL to the generated image"
+                          },
+                          "b64_json": {
+                            "type": "string",
+                            "description": "Base64-encoded JSON of the generated image"
+                          },
+                          "revised_prompt": {
+                            "type": "string",
+                            "description": "The prompt that was used to generate the image, potentially modified from the original"
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized - invalid or missing authentication",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string",
+                      "description": "Error message"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string",
+                      "description": "Error message"
+                    },
+                    "message": {
+                      "type": "string",
+                      "description": "Error details"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/health": {
+      "get": {
+        "summary": "Health check endpoint",
+        "description": "Returns health status for all configured providers",
+        "tags": [
+          "System"
+        ],
+        "responses": {
+          "200": {
+            "description": "Health status for all providers",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "description": "Overall API status",
+                      "example": "ok"
+                    },
+                    "nearai": {
+                      "type": "object",
+                      "properties": {
+                        "healthy": {
+                          "type": "boolean",
+                          "description": "Whether the provider is healthy"
+                        },
+                        "message": {
+                          "type": "object",
+                          "description": "Health check response or error message"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/models": {
+      "get": {
+        "summary": "List models",
+        "description": "Lists the currently available models, and provides basic information about each one such as the owner and availability.",
+        "tags": [
+          "Models"
+        ],
+        "responses": {
+          "200": {
+            "description": "List of available models",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "object": {
+                      "type": "string",
+                      "enum": [
+                        "list"
+                      ],
+                      "description": "Object type"
+                    },
+                    "data": {
+                      "type": "array",
+                      "description": "List of available models",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "id": {
+                            "type": "string",
+                            "description": "Model identifier"
+                          },
+                          "object": {
+                            "type": "string",
+                            "enum": [
+                              "model"
+                            ],
+                            "description": "Object type"
+                          },
+                          "created": {
+                            "type": "number",
+                            "description": "Unix timestamp of when the model was created"
+                          },
+                          "owned_by": {
+                            "type": "string",
+                            "description": "Organization that owns the model"
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized - invalid or missing authentication",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string",
+                      "description": "Error message"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string",
+                      "description": "Error message"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/web3/airdrop": {
+      "get": {
+        "summary": "Claim UNREAL token airdrop",
+        "description": "Gives a one-time 50 $UNREAL airdrop to the authenticated wallet",
+        "tags": [
+          "Web3"
+        ],
+        "responses": {
+          "200": {
+            "description": "Airdrop transaction information",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "txHash": {
+                      "type": "string",
+                      "description": "Transaction hash of the airdrop"
+                    },
+                    "alreadyClaimed": {
+                      "type": "boolean",
+                      "description": "Whether the user has already claimed an airdrop"
+                    },
+                    "confirmed": {
+                      "type": "boolean",
+                      "description": "Whether the airdrop transaction has been confirmed"
+                    },
+                    "message": {
+                      "type": "string",
+                      "description": "Status message about the airdrop"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized - invalid or missing authentication",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string",
+                      "description": "Error message"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string",
+                      "description": "Error message"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/": {
+      "get": {
+        "summary": "Root endpoint",
+        "description": "Returns a welcome message from the Unreal OpenAI Router",
+        "tags": [
+          "System"
+        ],
+        "responses": {
+          "200": {
+            "description": "Welcome message",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {}
+  }
+}

@@ -1,0 +1,37 @@
+version: '3.8'
+
+services:
+  # Development service using Bun
+  dev:
+    image: oven/bun:1
+    container_name: openrouter-docs-dev
+    working_dir: /app
+    ports:
+      - "3000:3000"
+    volumes:
+      - .:/app
+    environment:
+      - NODE_ENV=development
+      - NEXT_TELEMETRY_DISABLED=1
+    command: bun run dev
+    restart: unless-stopped
+
+  # Production service using the multi-stage Dockerfile
+  prod:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: openrouter-docs-prod
+    ports:
+      - "3000:3000"
+    environment:
+      - NODE_ENV=production
+      - NEXT_TELEMETRY_DISABLED=1
+    restart: unless-stopped
+    # Uncomment the following lines if you want to add healthcheck
+    # healthcheck:
+    #   test: ["CMD", "wget", "-q", "--spider", "http://localhost:3000"]
+    #   interval: 30s
+    #   timeout: 10s
+    #   retries: 3
+    #   start_period: 10s
