@@ -9,4 +9,8 @@ export const source = loader({
   source: docs.toFumadocsSource(),
 })
 
-export const openapi = createOpenAPI()
+export const openapi = createOpenAPI({
+  generateCodeSamples(endpoint) {
+    return []
+  },
+})
