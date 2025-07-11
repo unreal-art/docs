@@ -5,12 +5,26 @@
     "version": "1.0.0",
     "description": "API documentation for Unreal OpenAI Router"
   },
-  "servers": {
-    "default": {
-      "url": "https://openai.unreal.ai",
-      "description": "Default OpenAI Server"
+  "servers": [
+    {
+      "url": "https://openai.unreal.art"
+    },
+    {
+      "url": "{protocol}://void.scalar.com/{path}",
+      "description": "Responds with your request data",
+      "variables": {
+        "protocol": {
+          "enum": [
+            "https"
+          ],
+          "default": "https"
+        },
+        "path": {
+          "default": ""
+        }
+      }
     }
-  },
+  ],
   "paths": {
     "/v1/chat/completions": {
       "post": {
