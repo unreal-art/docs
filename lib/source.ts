@@ -10,7 +10,7 @@ export const source = loader({
 })
 
 export const openapi = createOpenAPI({
-  generateCodeSamples(endpoint) {
-    return []
-  },
+  // generateCodeSamples(endpoint) {
+  //   return []
+  // },
 })
