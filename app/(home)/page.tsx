@@ -1,6 +1,6 @@
 import { redirect } from "next/navigation"
 
 export default function HomePage() {
-  redirect("/docs/api")
+  redirect("/docs")
   return null
 }
