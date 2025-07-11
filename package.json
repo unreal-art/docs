@@ -7,7 +7,7 @@
     "dev": "next dev --turbo",
     "start": "next start",
     "postinstall": "fumadocs-mdx",
-    "gen:docs": "bun ./scripts/generate-docs.ts"
+    "gen:docs": "bun ./scripts/gen-docs.ts"
   },
   "dependencies": {
     "fumadocs-core": "15.6.3",
@@ -30,5 +30,9 @@
     "postcss": "^8.5.6",
     "eslint": "^8",
     "eslint-config-next": "15.3.4"
-  }
+  },
+  "trustedDependencies": [
+    "@tailwindcss/oxide",
+    "unrs-resolver"
+  ]
 }
