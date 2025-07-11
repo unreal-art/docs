@@ -6,7 +6,8 @@
     "build": "next build",
     "dev": "next dev --turbo",
     "start": "next start",
-    "postinstall": "fumadocs-mdx"
+    "postinstall": "fumadocs-mdx",
+    "gen:docs": "bun ./scripts/generate-docs.ts"
   },
   "dependencies": {
     "next": "15.3.4",
