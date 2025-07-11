@@ -23,7 +23,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Unreal OpenAI Documentation",
     description: "Documentation for Unreal OpenAI API (OpenAI SDK compatible)",
-    images: ["/logo.webp"],
+    images: ["https://docs.unreal.art/logo.webp"],
   },
   icons: {
     icon: [
