@@ -10,12 +10,14 @@
     "gen:docs": "bun ./scripts/generate-docs.ts"
   },
   "dependencies": {
+    "fumadocs-core": "15.6.3",
+    "fumadocs-mdx": "11.6.10",
+    "fumadocs-openapi": "^9.1.1",
+    "fumadocs-ui": "15.6.3",
     "next": "15.3.4",
     "react": "^19.1.0",
     "react-dom": "^19.1.0",
-    "fumadocs-ui": "15.6.3",
-    "fumadocs-core": "15.6.3",
-    "fumadocs-mdx": "11.6.10"
+    "shiki": "^3.7.0"
   },
   "devDependencies": {
     "@types/node": "24.0.7",
