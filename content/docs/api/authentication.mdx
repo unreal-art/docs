@@ -1,0 +1,241 @@
+---
+title: Authentication Endpoints
+description: API reference for Authentication endpoints
+---
+
+# Authentication Endpoints
+
+## Register for API access
+
+`POST /auth/register`
+
+Register a wallet for API access by providing a signed payload and optional permit
+
+### Responses
+
+#### 201 - Successfully registered
+
+```json
+{
+  "type": "object",
+  "properties": {
+    "permitTxHash": {
+      "type": "string",
+      "description": "Transaction hash for permit execution"
+    },
+    "token": {
+      "type": "string",
+      "description": "Bearer token for API authentication"
+    },
+    "walletAddress": {
+      "type": "string",
+      "description": "User wallet address"
+    },
+    "calls": {
+      "type": "number",
+      "description": "Number of API calls allocated"
+    }
+  }
+}
+```
+
+#### 400 - Bad request - invalid payload, signature, or address
+
+```json
+{
+  "type": "object",
+  "properties": {
+    "error": {
+      "type": "string",
+      "description": "Error message"
+    },
+    "details": {
+      "type": "string",
+      "description": "Additional error details"
+    }
+  }
+}
+```
+
+#### 401 - Unauthorized - signature verification failed
+
+```json
+{
+  "type": "object",
+  "properties": {
+    "error": {
+      "type": "string",
+      "description": "Error message"
+    }
+  }
+}
+```
+
+#### 402 - Payment required - insufficient token balance or allowance
+
+```json
+{
+  "type": "object",
+  "properties": {
+    "error": {
+      "type": "string",
+      "description": "Error message"
+    },
+    "requiredBalance": {
+      "type": "string",
+      "description": "Required token balance"
+    },
+    "balance": {
+      "type": "string",
+      "description": "Current token balance"
+    }
+  }
+}
+```
+
+#### 500 - Server error
+
+```json
+{
+  "type": "object",
+  "properties": {
+    "error": {
+      "type": "string",
+      "description": "Error message"
+    },
+    "details": {
+      "type": "string",
+      "description": "Error details"
+    }
+  }
+}
+```
+
+---
+
+## Verify API token
+
+`GET /auth/verify`
+
+Verify an API token and return associated wallet information
+
+### Responses
+
+#### 200 - Token verification successful
+
+```json
+{
+  "type": "object",
+  "properties": {
+    "wallet": {
+      "type": "string",
+      "description": "User wallet address"
+    },
+    "calls": {
+      "type": "number",
+      "description": "Number of API calls remaining"
+    },
+    "originalJwt": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "description": "Original JWT if applicable"
+    },
+    "paymentToken": {
+      "type": "string",
+      "description": "Payment token address"
+    }
+  }
+}
+```
+
+#### 400 - Bad request - missing token
+
+```json
+{
+  "type": "object",
+  "properties": {
+    "error": {
+      "type": "string",
+      "description": "Error message"
+    }
+  }
+}
+```
+
+#### 404 - Token not found
+
+```json
+{
+  "type": "object",
+  "properties": {
+    "error": {
+      "type": "string",
+      "description": "Error message"
+    },
+    "token": {
+      "type": "string",
+      "description": "Token that was not found"
+    }
+  }
+}
+```
+
+---
+
+## Get OpenAI service address
+
+`GET /auth/address`
+
+Returns the OpenAI service wallet address and chain information
+
+### Responses
+
+#### 200 - OpenAI service address information
+
+```json
+{
+  "type": "object",
+  "properties": {
+    "address": {
+      "type": "string",
+      "description": "OpenAI service wallet address",
+      "example": "0x1234567890abcdef1234567890abcdef12345678"
+    },
+    "chain": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "number",
+          "description": "Chain ID",
+          "example": 1
+        },
+        "name": {
+          "type": "string",
+          "description": "Chain name",
+          "example": "Ethereum"
+        }
+      }
+    }
+  }
+}
+```
+
+#### 500 - Server error
+
+```json
+{
+  "type": "object",
+  "properties": {
+    "error": {
+      "type": "string",
+      "description": "Error message",
+      "example": "System Error: OPENAI Address not set"
+    }
+  }
+}
+```
+
+---
+

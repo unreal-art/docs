@@ -1,0 +1,263 @@
+---
+title: API Keys Endpoints
+description: API reference for API Keys endpoints
+---
+
+# API Keys Endpoints
+
+## Create API key
+
+`POST /v1/keys`
+
+Creates a new API key for the authenticated wallet
+
+### Responses
+
+#### 200 - API key created successfully
+
+```json
+{
+  "type": "object",
+  "properties": {
+    "key": {
+      "type": "string",
+      "description": "The API key"
+    },
+    "hash": {
+      "type": "string",
+      "description": "Hash of the API key"
+    },
+    "state": {
+      "type": "object",
+      "properties": {
+        "wallet": {
+          "type": "string",
+          "description": "Wallet address associated with the key"
+        },
+        "name": {
+          "type": "string",
+          "description": "Name of the API key"
+        },
+        "calls": {
+          "type": "number",
+          "description": "Number of calls remaining"
+        },
+        "updatedAt": {
+          "type": "number",
+          "description": "Last update timestamp"
+        },
+        "paymentToken": {
+          "type": "string",
+          "description": "Payment token address"
+        }
+      }
+    }
+  }
+}
+```
+
+#### 400 - Bad request - missing name or invalid limit
+
+```json
+{
+  "type": "object",
+  "properties": {
+    "error": {
+      "type": "string",
+      "description": "Error message"
+    }
+  }
+}
+```
+
+#### 402 - Payment required
+
+```json
+{
+  "type": "object",
+  "properties": {
+    "error": {
+      "type": "string",
+      "description": "Error message"
+    }
+  }
+}
+```
+
+#### 429 - Too many API keys
+
+```json
+{
+  "type": "object",
+  "properties": {
+    "error": {
+      "type": "string",
+      "description": "Error message"
+    }
+  }
+}
+```
+
+---
+
+## Get all API keys
+
+`GET /v1/keys`
+
+Returns all API keys for the authenticated wallet
+
+### Responses
+
+#### 200 - List of API keys
+
+```json
+{
+  "type": "object",
+  "properties": {
+    "keys": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "List of API keys"
+    }
+  }
+}
+```
+
+#### 500 - Server error
+
+```json
+{
+  "type": "object",
+  "properties": {
+    "error": {
+      "type": "string",
+      "description": "Error message"
+    }
+  }
+}
+```
+
+---
+
+## Get API key details
+
+`GET /v1/keys/:key`
+
+Returns details for a specific API key
+
+### Responses
+
+#### 200 - API key details
+
+```json
+{
+  "type": "object",
+  "properties": {
+    "wallet": {
+      "type": "string",
+      "description": "Wallet address associated with the key"
+    },
+    "name": {
+      "type": "string",
+      "description": "Name of the API key"
+    },
+    "calls": {
+      "type": "number",
+      "description": "Number of calls remaining"
+    },
+    "updatedAt": {
+      "type": "number",
+      "description": "Last update timestamp"
+    },
+    "paymentToken": {
+      "type": "string",
+      "description": "Payment token address"
+    }
+  }
+}
+```
+
+#### 403 - Forbidden - key does not belong to authenticated wallet
+
+```json
+{
+  "type": "object",
+  "properties": {
+    "error": {
+      "type": "string",
+      "description": "Error message"
+    }
+  }
+}
+```
+
+#### 404 - API key not found
+
+```json
+{
+  "type": "object",
+  "properties": {
+    "error": {
+      "type": "string",
+      "description": "Error message"
+    }
+  }
+}
+```
+
+---
+
+## Delete API key
+
+`DELETE /v1/keys/:key`
+
+Deletes a specific API key
+
+### Responses
+
+#### 200 - API key deleted successfully
+
+```json
+{
+  "type": "object",
+  "properties": {
+    "deleted": {
+      "type": "boolean",
+      "description": "Whether the key was successfully deleted"
+    }
+  }
+}
+```
+
+#### 403 - Forbidden - key does not belong to authenticated wallet
+
+```json
+{
+  "type": "object",
+  "properties": {
+    "error": {
+      "type": "string",
+      "description": "Error message"
+    }
+  }
+}
+```
+
+#### 404 - API key not found
+
+```json
+{
+  "type": "object",
+  "properties": {
+    "error": {
+      "type": "string",
+      "description": "Error message"
+    }
+  }
+}
+```
+
+---
+
