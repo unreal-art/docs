@@ -23,6 +23,8 @@ export const baseOptions: BaseLayoutProps = {
       </>
     ),
   },
+  githubUrl: "https://github.com/unreal-art",
+
   // see https://fumadocs.dev/docs/ui/navigation/links
   links: [],
 }
