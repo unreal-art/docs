@@ -10,7 +10,7 @@
       "url": "https://openai.unreal.art"
     },
     {
-      "url": "{protocol}://void.scalar.com/{path}",
+      "url": "{protocol}://openai.unreal.art/{path}",
       "description": "Responds with your request data",
       "variables": {
         "protocol": {
