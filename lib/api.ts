@@ -45,6 +45,14 @@ export interface PermitMessage {
   deadline: bigint
 }
 
+export interface PermitMessageString {
+  owner: `0x${string}`
+  spender: `0x${string}`
+  value: string
+  nonce: string
+  deadline: string
+}
+
 export interface RegisterRequest {
   payload: RegisterPayload
   signature: string
@@ -258,7 +266,7 @@ export class WalletService {
     spender: string,
     amount: bigint,
     deadline: number
-  ): Promise<{ permit: PermitMessage; signature: string }> {
+  ): Promise<{ permit: PermitMessageString; signature: string }> {
     if (!this.walletClient || !this.account) {
       throw new Error("Wallet not connected")
     }
@@ -301,7 +309,7 @@ export class WalletService {
         abi: erc20Abi,
         address: tokenAddress as `0x${string}`,
         functionName: "nonces",
-        args: [ownerAddress],
+        args: [ownerAddress as `0x${string}`],
       })
 
       const chainId = await publicClient.getChainId()

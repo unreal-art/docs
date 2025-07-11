@@ -1,5 +1,8 @@
+"use client";
+
 import type { BaseLayoutProps } from "fumadocs-ui/layouts/shared"
 import Image from "next/image"
+import { WalletButton } from "@/components/wallet/WalletButton"
 
 /**
  * Shared layout configurations
@@ -16,6 +19,7 @@ export const baseOptions: BaseLayoutProps = {
         Unreal OpenAI Router
       </>
     ),
+    children: <div className="ml-auto"><WalletButton /></div>,
   },
   githubUrl: "https://github.com/unreal-art",
 
