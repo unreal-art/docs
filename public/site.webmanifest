@@ -1,7 +1,7 @@
 {
-  "name": "OpenRouter AI Documentation",
+  "name": "Unreal OpenAI Documentation",
   "short_name": "OpenRouter Docs",
-  "description": "Documentation for OpenRouter AI API - OpenAI SDK compatible interface for accessing multiple AI models through a unified API.",
+  "description": "Documentation for Unreal OpenAI API - OpenAI SDK compatible interface for accessing multiple AI models through a unified API.",
   "start_url": "/?source=pwa",
   "scope": "/",
   "display": "standalone",
