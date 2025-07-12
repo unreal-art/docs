@@ -31,8 +31,9 @@ jobs:
       matrix:
         #        arch: [ x64, arm, arm64 ]
         os: [
-            # windows-latest, //FIXME: windows doesn't support :keys directory which is sad
-            macos-latest,
+            windows-latest,
+            //FIXME: windows doesn't support :keys directory which is sad
+              macos-latest,
             ubuntu-latest,
             # ubuntu-20.04,
             # ubuntu-22.04,
