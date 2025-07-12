@@ -4,6 +4,7 @@ import { Inter } from "next/font/google"
 import type { ReactNode } from "react"
 import type { Metadata } from "next"
 import { OPENAI_URL } from "@/config"
+import { ApiProvider } from "@/lib/ApiContext"
 
 const inter = Inter({
   subsets: ["latin"],
@@ -40,7 +41,9 @@ export default function Layout({ children }: { children: ReactNode }) {
   return (
     <html lang="en" className={inter.className} suppressHydrationWarning>
       <body className="flex flex-col min-h-screen">
-        <RootProvider>{children}</RootProvider>
+        <ApiProvider>
+          <RootProvider>{children}</RootProvider>
+        </ApiProvider>
       </body>
     </html>
   )
