@@ -10,3 +10,7 @@ import "local.Justfile"
 
 
 OPENAI_URL:=env("NEXT_PUBLIC_OPENAI_URL","https://openai.unreal.art")
+
+
+b:
+  bun run build
