@@ -170,13 +170,10 @@ export class UnrealApiClient {
   }
 }
 
-// Import WalletClient type
-import type { WalletClient } from 'viem'
-
 // Wallet utilities
 export class WalletService {
-  // Use a more specific type instead of ReturnType to avoid excessive type instantiation
-  private walletClient: WalletClient | null = null
+  // Use any type to bypass TypeScript deep instantiation error
+  private walletClient: any = null
   private account: `0x${string}` | null = null
 
   // Define window.ethereum for TypeScript
@@ -188,16 +185,20 @@ export class WalletService {
   async connect(): Promise<string> {
     if (window.ethereum) {
       try {
-        // Create a wallet client
-        this.walletClient = createWalletClient({
-          chain: mainnet,
-          transport: custom(window.ethereum),
-        })
-
-        // Request accounts
+        // Simplified approach to avoid TypeScript deep instantiation error
+        // Request accounts first without creating wallet client
         const [address] = (await window.ethereum.request({
           method: "eth_requestAccounts",
         })) as `0x${string}`[]
+        
+        // Only create the wallet client after we have the address
+        // This breaks the potential circular dependency
+        if (!this.walletClient) {
+          this.walletClient = createWalletClient({
+            chain: mainnet,
+            transport: custom(window.ethereum)
+          })
+        }
         this.account = address
 
         return address
