@@ -3,9 +3,14 @@ name: Build
 on:
   push:
     branches:
-      - '**'
+      - "**"
     tags:
-      - '**'
+      - "**"
+
+  pull_request:
+    branches:
+      - "**"
+
   workflow_dispatch:
 
 jobs:
@@ -18,7 +23,7 @@ jobs:
       - name: Setup Bun
         uses: oven-sh/setup-bun@v1
         with:
-          bun-version: 'latest'
+          bun-version: "latest"
 
       - name: Install dependencies
         run: bun install
