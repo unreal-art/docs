@@ -6,11 +6,16 @@ export const UNREAL_ADDRESS =
   "0xA409B5E5D34928a0F1165c7a73c8aC572D1aBCDB".toLowerCase() as unknown as Address
 
 export const OPENAI_URL =
-  process.env.NEXT_PUBLIC_OPENAI_URL || "https://openai.unreal.art/v1"
+  process.env.NEXT_PUBLIC_OPENAI_URL || "https://openai.unreal.art"
+
+export const OPENAI_BASE_URL =
+  process.env.NEXT_PUBLIC_OPENAI_BASE_URL || "https://openai.unreal.art/v1"
 
 console.log("OPENAI_URL", OPENAI_URL)
+console.log("OPENAI_BASE_URL", OPENAI_BASE_URL)
+
 export const openaiClient = axios.create({
-  baseURL: OPENAI_URL,
+  baseURL: OPENAI_BASE_URL,
   headers: {
     "Content-Type": "application/json",
   },

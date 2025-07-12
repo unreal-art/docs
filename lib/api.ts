@@ -8,11 +8,11 @@ import {
   hashMessage,
 } from "viem"
 import { mainnet } from "viem/chains"
-import { OPENAI_URL } from "@/config/unreal"
+import { OPENAI_BASE_URL } from "@/config/unreal"
 import { publicClient } from "@/config/wallet"
 
 // API base URL
-const API_BASE_URL = OPENAI_URL
+const API_BASE_URL = OPENAI_BASE_URL
 import { openaiClient } from "@/config/unreal"
 
 // Types
@@ -190,13 +190,13 @@ export class WalletService {
         const [address] = (await window.ethereum.request({
           method: "eth_requestAccounts",
         })) as `0x${string}`[]
-        
+
         // Only create the wallet client after we have the address
         // This breaks the potential circular dependency
         if (!this.walletClient) {
           this.walletClient = createWalletClient({
             chain: mainnet,
-            transport: custom(window.ethereum)
+            transport: custom(window.ethereum),
           })
         }
         this.account = address
