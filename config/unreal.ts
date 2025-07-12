@@ -21,8 +21,11 @@ openaiClient.defaults.withCredentials = true
 openaiClient.interceptors.request.use((config) => {
   const token = localStorage.getItem("unreal_token")
   if (token) {
-    config.headers = config.headers || {}
-    config.headers["Authorization"] = `Bearer ${token}`
+    // Set the Authorization header safely
+    config.headers = {
+      ...config.headers,
+      Authorization: `Bearer ${token}`
+    }
   }
   return config
 })
