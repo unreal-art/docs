@@ -1,0 +1,47 @@
+name: Docker
+
+on:
+  push:
+    # branches:
+    #   - main
+
+    branches-ignore:
+      - "release-tags"
+      - "dev"
+
+    tags:
+      - "**"
+
+  pull_request:
+    branches:
+      - main
+  merge_group:
+    types: [checks_requested]
+
+  workflow_dispatch:
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+env:
+  MODE: test
+  NODE_ENV: testing
+
+jobs:
+  build-docker:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Create .env
+        run: |
+          cp .env.example .env
+          echo "$ENV" >> .env
+        env:
+          ENV: ${{ secrets.ENV }}
+
+      - name: Build Docker
+        run: docker build .

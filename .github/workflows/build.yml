@@ -28,5 +28,12 @@ jobs:
       - name: Install dependencies
         run: bun install
 
+      - name: Create .env
+        run: |
+          cp .env.example .env
+          echo "$ENV" >> .env
+        env:
+          ENV: ${{ secrets.ENV }}
+
       - name: Build project
         run: bun run build
