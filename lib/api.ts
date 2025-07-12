@@ -226,6 +226,18 @@ export class WalletService {
       return false
     }
   }
+  
+  // Disconnect wallet
+  async disconnect(): Promise<void> {
+    // Reset internal state
+    this.walletClient = null
+    this.account = null
+    
+    // Note: Most wallets don't support programmatic disconnection
+    // We're just clearing our local state here
+    // The wallet connection in the browser remains until the user disconnects manually
+    // or the session expires
+  }
 
   // Get connected wallet address
   async getAddress(): Promise<string | null> {

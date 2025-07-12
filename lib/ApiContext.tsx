@@ -31,6 +31,7 @@ interface ApiContextType {
   isLoadingApiKeys: boolean
   error: string | null
   connectWallet: () => Promise<string>
+  disconnectWallet: () => Promise<void>
   registerWithWallet: (calls: number) => Promise<string>
   verifyToken: () => Promise<VerifyResponse>
   createApiKey: (name: string) => Promise<ApiKeyResponse>
@@ -448,6 +449,38 @@ export const ApiProvider: React.FC<{ children: ReactNode }> = ({
     setError(null)
   }
 
+  // Disconnect wallet
+  const disconnectWallet = async (): Promise<void> => {
+    setIsLoading(true)
+    setError(null)
+
+    try {
+      // Disconnect from wallet provider
+      await walletService.disconnect()
+      
+      // Clear wallet-related state
+      setWalletAddress(null)
+      setOpenaiAddress(null)
+      
+      // Clear wallet-related localStorage items
+      localStorage.removeItem("unreal_wallet_address")
+      localStorage.removeItem("unreal_openai_address")
+      localStorage.removeItem("unreal_calls_value")
+      localStorage.removeItem("unreal_payment_token")
+      
+      // If user was authenticated, also log them out
+      if (isAuthenticated) {
+        logout()
+      }
+    } catch (error) {
+      const errorMessage = error instanceof Error ? error.message : 'Failed to disconnect wallet'
+      setError(errorMessage)
+      throw error
+    } finally {
+      setIsLoading(false)
+    }
+  }
+
   const value = {
     isAuthenticated,
     isLoading,
@@ -461,6 +494,7 @@ export const ApiProvider: React.FC<{ children: ReactNode }> = ({
     isLoadingApiKeys,
     error,
     connectWallet,
+    disconnectWallet,
     registerWithWallet,
     verifyToken,
     createApiKey,

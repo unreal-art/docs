@@ -10,6 +10,7 @@ export function WalletButton() {
     walletAddress,
     openaiAddress,
     connectWallet,
+    disconnectWallet,
     registerWithWallet
   } = useApi();
 
@@ -18,6 +19,14 @@ export function WalletButton() {
       await connectWallet();
     } catch (error) {
       console.error('Failed to connect wallet:', error);
+    }
+  };
+
+  const handleDisconnect = async () => {
+    try {
+      await disconnectWallet();
+    } catch (error) {
+      console.error('Failed to disconnect wallet:', error);
     }
   };
 
@@ -42,6 +51,11 @@ export function WalletButton() {
     transition: 'background-color 0.2s',
   };
 
+  const secondaryButtonStyle = {
+    ...buttonStyle,
+    backgroundColor: '#4b5563',
+  };
+
   const disabledStyle = {
     ...buttonStyle,
     backgroundColor: '#94a3b8',
@@ -55,26 +69,44 @@ export function WalletButton() {
     color: '#1f2937',
   };
 
+  const containerStyle = {
+    display: 'flex',
+    gap: '0.5rem',
+  };
+
   if (isLoading) {
     return <button disabled style={disabledStyle}>Loading...</button>;
   }
 
-  if (isAuthenticated) {
+  // Connected to wallet but not authenticated
+  if (walletAddress && !isAuthenticated) {
     return (
-      <button disabled style={outlineStyle}>
-        Connected
-      </button>
+      <div style={containerStyle}>
+        <button onClick={handleRegister} style={buttonStyle}>
+          Register
+        </button>
+        <button onClick={handleDisconnect} style={secondaryButtonStyle}>
+          Disconnect
+        </button>
+      </div>
     );
   }
 
-  if (walletAddress && openaiAddress && !isAuthenticated) {
+  // Connected and authenticated
+  if (walletAddress && isAuthenticated) {
     return (
-      <button onClick={handleRegister} style={buttonStyle}>
-        Register
-      </button>
+      <div style={containerStyle}>
+        <button disabled style={outlineStyle}>
+          Connected
+        </button>
+        <button onClick={handleDisconnect} style={secondaryButtonStyle}>
+          Disconnect
+        </button>
+      </div>
     );
   }
 
+  // Not connected
   return (
     <button onClick={handleConnect} style={buttonStyle}>
       Connect Wallet
