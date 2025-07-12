@@ -1,4 +1,4 @@
-import { publicClient } from '@config/wallet';
+import { publicClient } from '../../config/wallet';
 import { type Address, type WalletClient, parseSignature } from 'viem';
 import { waitForTransactionReceipt } from './torus';
 
@@ -59,6 +59,7 @@ export async function executePermit(
 	console.log('permit Tx', txHash);
 	// console.log("permit", permit)
 
-	await waitForTransactionReceipt(publicClient, txHash, 1); //FIXME:
+	// Use type assertion to fix the type incompatibility with publicClient
+	await waitForTransactionReceipt(publicClient as any, txHash, 1);
 	return txHash;
 }

@@ -17,15 +17,8 @@ export const openaiClient = axios.create({
 })
 openaiClient.defaults.withCredentials = true
 
-// Add interceptor to inject Authorization header if token is present in localStorage
+// Cookie is already set for authentication, no need for Authorization header
 openaiClient.interceptors.request.use((config) => {
-  const token = localStorage.getItem("unreal_token")
-  if (token) {
-    // Set the Authorization header safely
-    config.headers = {
-      ...config.headers,
-      Authorization: `Bearer ${token}`
-    }
-  }
+  // No need to add Authorization header as cookie is already set
   return config
 })

@@ -170,9 +170,13 @@ export class UnrealApiClient {
   }
 }
 
+// Import WalletClient type
+import type { WalletClient } from 'viem'
+
 // Wallet utilities
 export class WalletService {
-  private walletClient: ReturnType<typeof createWalletClient> | null = null
+  // Use a more specific type instead of ReturnType to avoid excessive type instantiation
+  private walletClient: WalletClient | null = null
   private account: `0x${string}` | null = null
 
   // Define window.ethereum for TypeScript

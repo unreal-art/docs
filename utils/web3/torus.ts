@@ -1,7 +1,8 @@
 import type { PublicClient } from 'viem';
 
+// Use a more flexible type to accommodate different client configurations
 export async function waitForTransactionReceipt(
-	client: PublicClient,
+	client: Pick<PublicClient, 'waitForTransactionReceipt'>,
 	txHash: `0x${string}`,
 	confirmations?: number
 ) {

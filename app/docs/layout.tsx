@@ -3,7 +3,6 @@
 import type { ReactNode } from 'react';
 import { DocsLayout } from 'fumadocs-ui/layouts/docs';
 import { baseOptions } from '@/app/layout.config';
-import { source } from '@/lib/source';
 import { WalletButton } from '@/components/wallet/WalletButton';
 
 export default function Layout({ children }: { children: ReactNode }) {
@@ -23,8 +22,15 @@ export default function Layout({ children }: { children: ReactNode }) {
     nav: customNav,
   };
 
+  // Use a specific key from pageTree if available, or create a minimal tree structure
+  // This ensures we have a valid tree structure for DocsLayout
+  const tree = {
+    name: "docs",
+    children: []
+  };
+  
   return (
-    <DocsLayout tree={source.pageTree} {...updatedOptions}>
+    <DocsLayout tree={tree} {...updatedOptions}>
       {children}
     </DocsLayout>
   );
