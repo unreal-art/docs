@@ -1,0 +1,59 @@
+name: Cross
+
+on:
+  push:
+    # branches:
+    #   - main
+
+    branches-ignore:
+      - "release-tags"
+      - "dev"
+
+    tags:
+      - "*"
+      - "**"
+
+  pull_request:
+    branches:
+      - main
+
+  workflow_dispatch:
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  cross:
+    strategy:
+      max-parallel: 4
+      fail-fast: false
+      matrix:
+        #        arch: [ x64, arm, arm64 ]
+        os: [
+            windows-latest,
+            macos-latest,
+            ubuntu-latest,
+            #          macos-latest-xl, macos-13, macos-13-xl, macos-11, macos-12, macos-12-xl,
+            windows-2022,
+            windows-2019,
+            ubuntu-20.04,
+            ubuntu-22.04,
+          ]
+
+    runs-on: ${{ matrix.os }}
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Bun
+        uses: oven-sh/setup-bun@v1
+        with:
+          bun-version: "latest"
+
+      - name: Install dependencies
+        run: bun install
+
+      - name: Build project
+        run: bun run build
