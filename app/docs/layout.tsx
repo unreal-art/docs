@@ -24,10 +24,12 @@ export default function Layout({ children }: { children: ReactNode }) {
   }
 
   // const docsTree = source.pageTree
-  const docsTree = {
-    name: "docs",
-    children: [],
-  }
+  const docsTree = source.getPageTree()
+
+  // const docsTree = {
+  //   name: "docs",
+  //   children: [],
+  // }
 
   // // Use the actual docs tree from source.pageTree (first value) or fallback
   // const docsTree = Object.values(source.pageTree)[0] ?? {
