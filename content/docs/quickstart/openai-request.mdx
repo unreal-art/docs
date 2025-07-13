@@ -7,14 +7,13 @@ import { OPENAI_URL } from "../../../config/index"
 
 # Your first Chat Completion request
 
-> 📺 _Video walkthrough coming soon._
 
 With an API key in hand, you’re ready to call the Unreal OpenAI endpoint.
 
 ## Example (curl)
 
 ```bash
-curl {OPENAI_URL}/v1/chat/completions \
+curl https://openai.unreal.art/v1/chat/completions \
   -H "Authorization: Bearer <YOUR_API_KEY>" \
   -H "Content-Type: application/json" \
   -d '{

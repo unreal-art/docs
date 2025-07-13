@@ -12,7 +12,7 @@ The chat completions API allows you to have dynamic conversations with Unreal's 
 ## Quick Example
 
 ```bash
-curl -X POST {OPENAI_URL}/v1/chat/completions \
+curl -X POST https://openai.unreal.art/v1/chat/completions \
   -H "Authorization: Bearer <YOUR_API_KEY>" \
   -H "Content-Type: application/json" \
   -d '{
@@ -81,7 +81,7 @@ Include the complete conversation history to maintain context:
 Enable streaming for real-time generation:
 
 ```bash
-curl -X POST {OPENAI_URL}/v1/chat/completions \
+curl -X POST https://openai.unreal.art/v1/chat/completions \
   -H "Authorization: Bearer <YOUR_API_KEY>" \
   -H "Content-Type: application/json" \
   -d '{
