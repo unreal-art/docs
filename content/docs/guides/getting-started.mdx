@@ -3,7 +3,9 @@ title: Getting Started
 description: Learn how to get started with Unreal OpenAI API
 ---
 
-# Getting Started with Unreal's OpenAI
+import { OPENAI_URL } from "../../../config/index"
+
+# Getting Started with Unreal OpenAI Backend
 
 This guide will help you get started with the Unreal's OpenAI API, which is compatible with the OpenAI SDK.
 
@@ -11,7 +13,7 @@ This guide will help you get started with the Unreal's OpenAI API, which is comp
 
 Before you begin, make sure you have:
 
-1. An OpenRouter API key
+1. An Unreal API key (generate one in the Unreal Console)
 2. Node.js installed (version 16 or higher)
 3. Basic knowledge of JavaScript/TypeScript
 
@@ -39,7 +41,7 @@ import { OpenAI } from 'openai';
 
 const openai = new OpenAI({
   apiKey: 'your-openrouter-api-key', // Replace with your actual API key
-  baseURL: 'https://openrouter.ai/api', // OpenRouter API endpoint
+  baseURL: OPENAI_URL, // OpenRouter API endpoint
 });
 ```
 

@@ -3,6 +3,8 @@ title: Advanced Features
 description: Learn about advanced features of the Unreal OpenAI API
 ---
 
+import { OPENAI_URL } from "../../../config/index"
+
 # Advanced Features
 
 This guide covers advanced features and techniques for working with the Unreal OpenAI API.
@@ -15,8 +17,8 @@ For applications that require real-time responses, you can use streaming:
 import { OpenAI } from 'openai';
 
 const openai = new OpenAI({
-  apiKey: 'your-openrouter-api-key',
-  baseURL: 'https://openrouter.ai/api',
+  apiKey: 'your-unreal-api-key',
+  baseURL: OPENAI_URL,
 });
 
 async function streamCompletion() {
@@ -169,7 +171,7 @@ class RateLimitedOpenAI {
 }
 
 // Usage
-const client = new RateLimitedOpenAI('your-api-key', 'https://openrouter.ai/api');
+const client = new RateLimitedOpenAI('your-api-key', OPENAI_URL);
 const response = await client.createChatCompletion({
   model: 'your-preferred-model',
   messages: [
