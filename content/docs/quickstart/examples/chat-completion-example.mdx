@@ -1,0 +1,78 @@
+---
+title: Chat Completion (Example)
+description: End-to-end demo of calling the /v1/chat/completions endpoint.
+---
+
+import { OPENAI_URL, DISCORD_URL, TELEGRAM_URL } from "../../../../config/index"
+
+# Chat Completion via `/v1/chat/completions`
+
+This walkthrough shows how to create a basic chat completion using Unreal OpenAI's models.
+
+## Request (curl)
+
+```bash
+curl -X POST {OPENAI_URL}/v1/chat/completions \
+  -H "Authorization: Bearer <YOUR_API_KEY>" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "model": "unreal::r1-1776",
+    "messages": [
+      { "role": "user", "content": "Explain quantum computing in simple terms" }
+    ],
+    "stream": false
+  }'
+```
+
+### Example response
+
+```jsonc
+{
+  "id": "chatcmpl-123abc456def789",
+  "object": "chat.completion",
+  "created": 1694268762,
+  "model": "unreal::r1-1776",
+  "choices": [
+    {
+      "index": 0,
+      "message": {
+        "role": "assistant",
+        "content": "Quantum computing is like having a very special deck of cards. Normal computers use regular cards that can only be face up or face down (0 or 1). But quantum computers use magical cards that can be face up, face down, or somehow both at the same time until you look at them! This ability to be in multiple states at once lets quantum computers solve certain problems much faster than regular computers.\n\nInstead of binary bits (0s and 1s), quantum computers use 'qubits' that can represent multiple possibilities simultaneously. When you have several qubits working together, they can explore many potential solutions to a problem at once, rather than checking each possibility one by one.\n\nThe catch is that these quantum systems are extremely delicate - even tiny disturbances can ruin their special properties. That's why quantum computers need to be kept super cold and isolated from the environment."
+      },
+      "finish_reason": "stop"
+    }
+  ],
+  "usage": {
+    "prompt_tokens": 14,
+    "completion_tokens": 185,
+    "total_tokens": 199
+  }
+}
+```
+
+## Streaming responses
+
+You can also stream responses with the `stream` parameter:
+
+```bash
+curl -X POST {OPENAI_URL}/v1/chat/completions \
+  -H "Authorization: Bearer <YOUR_API_KEY>" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "model": "unreal::mixtral-8x22b-instruct",
+    "messages": [
+      { "role": "user", "content": "Hello" }
+    ],
+    "stream": true
+  }'
+```
+
+When streaming is enabled, the API will send back chunks of the response as they're generated, each in the following format:
+
+```jsonc
+data: {"id":"chatcmpl-123abc456def789","object":"chat.completion.chunk","created":1694268762,"model":"unreal::mixtral-8x22b-instruct","choices":[{"index":0,"delta":{"role":"assistant","content":"Hello"},"finish_reason":null}]}
+```
+
+---
+
+Need help? Ask in <a href={DISCORD_URL}>Discord</a> or <a href={TELEGRAM_URL}>Telegram</a>.
