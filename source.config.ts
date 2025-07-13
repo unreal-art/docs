@@ -21,4 +21,18 @@ export default defineConfig({
   mdxOptions: {
     // MDX options
   },
+  navigation: [
+    {
+      label: 'API Reference',
+      link: '/docs/openai',
+      expanded: true,
+      children: [
+        {
+          label: 'v1',
+          link: '/docs/openai/v1',
+          expanded: true,
+        },
+      ],
+    },
+  ],
 })
