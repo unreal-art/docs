@@ -1,0 +1,31 @@
+---
+title: Your first Chat Completion request
+description: Make a test call to Unreal OpenAI backend using an API key.
+---
+
+# Your first Chat Completion request
+
+> 📺 _Video walkthrough coming soon._
+
+With an API key in hand, you’re ready to call the Unreal OpenAI endpoint.
+
+## Example (curl)
+
+```bash
+curl https://openai.unreal.art/v1/chat/completions \
+  -H "Authorization: Bearer <YOUR_API_KEY>" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "model": "unreal::llama4-scout-instruct-basic",
+    "messages": [{"role": "user", "content": "Hello, world!"}]
+  }'
+```
+
+Response should look like:
+
+```json {"id":"...","choices":[{"message":{"role":"assistant","content":"Hi!"}}]}
+```
+
+## Next
+
+Explore advanced parameters or manage your key in Cockpit ➡️
