@@ -16,7 +16,7 @@ export const baseOptions: BaseLayoutProps = {
     title: (
       <>
         <Image src="/logo.webp" alt="Logo" width={24} height={24} />
-        Unreal OpenAI Router
+        Unreal AI
       </>
     ),
     // children: <div className="ml-auto"><WalletButton /></div>,
