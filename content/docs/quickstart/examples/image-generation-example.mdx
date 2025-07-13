@@ -5,18 +5,11 @@ description: End-to-end demo of calling the /v1/images/generations endpoint.
 
 import { OPENAI_URL, DISCORD_URL, TELEGRAM_URL } from "../../../../config/index"
 
+# Generate Images with AI
 
-# Generate an Image via `/v1/images/generations`
+Create stunning AI-generated images from text descriptions using Unreal's image generation API.
 
-This walkthrough shows how to create a single image using Unreal OpenAI’s image model.
-
-> 🖼️ Preview:
->
-> <div style={{ textAlign: 'center' }}>
->   <img src="/static/a-futuristic-city-floating-in-the-clouds--painted-in-pastel-tones_1_00.jpg" alt="Generated image preview" width="400" />
-> </div>
-
-## Request (curl)
+## Quick Example
 
 ```bash
 curl -X POST {OPENAI_URL}/v1/images/generations \
@@ -29,18 +22,54 @@ curl -X POST {OPENAI_URL}/v1/images/generations \
   }'
 ```
 
-### Example response
+The API will return a base64-encoded image that you can decode and use directly in your application:
 
 ```jsonc
 {
   "data": [
-    { "b64_json": "<base-64 image truncated for brevity>" }
+    { 
+      "b64_json": "<base-64 image data>" 
+    }
   ]
 }
 ```
 
-Once you have the URL, you can embed or download the image as needed. Try adjusting `prompt`, `model`, or `steps` for different results.
+<div style={{ textAlign: "center" }}>
+  <img src="/static/generated-city-example.png" alt="AI-generated futuristic city" width="512" height="512" />
+</div>
+
+## Request Parameters
+
+| Parameter | Type | Description |
+|-----------|------|-------------|
+| `prompt` | string | **Required**. Text description of the image to generate |
+| `model` | string | Model to use (default: `unreal::playground-v2-5-1024px-aesthetic`) |
+| `seed` | integer | Random seed for reproducible results (optional) |
+| `n` | integer | Number of images to generate (default: 1, max: 4) |
+
+## Advanced Usage
+
+### Multiple Images
+
+Generate multiple variations with a single request:
+
+```bash
+curl -X POST {OPENAI_URL}/v1/images/generations \
+  -H "Authorization: Bearer <YOUR_API_KEY>" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "prompt": "a futuristic city floating in the clouds, painted in pastel tones",
+    "n": 2
+  }'
+```
+
+### Customizing Output
+
+Try adjusting these parameters for different results:
+- Use longer, more detailed prompts for better precision
+- Experiment with different seeds for varied outputs
+- Try different models for different artistic styles
 
 ---
 
-Need help? Ask in <a href={DISCORD_URL}>Discord</a> or <a href={TELEGRAM_URL}>Telegram</a>.
+Need help? Join our community on [Discord]({DISCORD_URL}) or [Telegram]({TELEGRAM_URL})

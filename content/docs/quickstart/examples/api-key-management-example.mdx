@@ -1,71 +1,86 @@
 ---
-title: API Key Management (Example)
-description: End-to-end demo of creating and managing API keys.
+title: API Key Management
+description: Create and manage API keys for accessing Unreal's AI services.
 ---
 
 import { OPENAI_URL, DISCORD_URL, TELEGRAM_URL } from "../../../../config/index"
 
-# API Key Management via `/v1/keys`
+# Manage Your API Keys
 
-This walkthrough shows how to create, list, and delete API keys using Unreal OpenAI's API.
+Create and manage API keys to securely access Unreal's AI services. API keys provide authenticated access to all available endpoints.
 
-## Create an API Key
+## Key Management Lifecycle
+
+![API Key Lifecycle](/static/key-manage.jpeg)
+
+## Creating a New API Key
+
+Create a named API key with a simple POST request:
 
 ```bash
 curl -X POST {OPENAI_URL}/v1/keys \
   -H "Authorization: Bearer <YOUR_SESSION_TOKEN>" \
   -H "Content-Type: application/json" \
   -d '{
-    "name": "my-key-1"
+    "name": "my-production-app"
   }'
 ```
 
-### Example response
+**Response:**
 
 ```jsonc
 {
-  "name": "my-key-1",
-  "key": "sk-a1b2c3d4e5f6g7h8i9j0...",  # Full key shown only once
+  "name": "my-production-app",
+  "key": "sk-a1b2c3d4e5f6g7h8i9j0...",
   "hash": "abc123def456ghi789...",
   "created": 1694268762
 }
 ```
 
-> ⚠️ **Important**: The complete key is only shown once at creation time. Store it securely. After this, only the hashed version will be available.
+> ⚠️ **Security Notice**: The complete API key is displayed ONLY ONCE at creation time. Store it securely as it cannot be retrieved again.
 
-## List API Keys
+## Listing Your API Keys
+
+View all your active API keys:
 
 ```bash
 curl -X GET {OPENAI_URL}/v1/keys \
   -H "Authorization: Bearer <YOUR_SESSION_TOKEN>"
 ```
 
-### Example response
+**Response:**
 
 ```jsonc
 {
   "keys": [
     {
-      "name": "my-key-1",
+      "name": "my-production-app",
       "hash": "abc123def456ghi789...",
       "created": 1694268762
+    },
+    {
+      "name": "testing-key",
+      "hash": "def456ghi789jkl...", 
+      "created": 1694352481
     }
   ]
 }
 ```
 
-## Get API Key Details
+## Getting Key Details and Usage Stats
+
+Retrieve detailed information about a specific API key:
 
 ```bash
 curl -X GET {OPENAI_URL}/v1/keys/<KEY_OR_HASH_ID> \
   -H "Authorization: Bearer <YOUR_SESSION_TOKEN>"
 ```
 
-### Example response
+**Response:**
 
 ```jsonc
 {
-  "name": "my-key-1",
+  "name": "my-production-app",
   "hash": "abc123def456ghi789...",
   "created": 1694268762,
   "usage": {
@@ -75,14 +90,16 @@ curl -X GET {OPENAI_URL}/v1/keys/<KEY_OR_HASH_ID> \
 }
 ```
 
-## Delete an API Key
+## Revoking an API Key
+
+Revoke an API key when it's no longer needed or compromised:
 
 ```bash
 curl -X DELETE {OPENAI_URL}/v1/keys/<KEY_OR_HASH_ID> \
   -H "Authorization: Bearer <YOUR_SESSION_TOKEN>"
 ```
 
-### Example response
+**Response:**
 
 ```jsonc
 {
@@ -90,9 +107,17 @@ curl -X DELETE {OPENAI_URL}/v1/keys/<KEY_OR_HASH_ID> \
 }
 ```
 
+## Best Practices
+
+- **Create multiple keys** for different environments (development, staging, production)
+- **Rotate keys regularly** to enhance security
+- **Never hardcode keys** in source code or client-side applications
+- **Restrict key access** using environment variables or secure vaults
+- **Monitor usage patterns** to detect unusual activity
+
 ## Using Your API Key
 
-Once created, use your API key to authenticate requests to other endpoints:
+Use your API key to authenticate requests to any Unreal API endpoint:
 
 ```bash
 curl -X POST {OPENAI_URL}/v1/chat/completions \
@@ -108,4 +133,4 @@ curl -X POST {OPENAI_URL}/v1/chat/completions \
 
 ---
 
-Need help? Ask in <a href={DISCORD_URL}>Discord</a> or <a href={TELEGRAM_URL}>Telegram</a>.
+Need help? Join our community on [Discord]({DISCORD_URL}) or [Telegram]({TELEGRAM_URL})

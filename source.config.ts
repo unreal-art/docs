@@ -46,5 +46,15 @@ export default defineConfig({
         },
       ],
     },
+    {
+      label: 'Guides',
+      link: '/docs/guides',
+      expanded: true,
+    },
+    {
+      label: 'API Playground',
+      link: '/docs/playground',
+      expanded: false,
+    },
   ],
 })
