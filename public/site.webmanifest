@@ -27,7 +27,7 @@
       "name": "API Reference",
       "short_name": "API Docs",
       "description": "View the OpenRouter API reference documentation",
-      "url": "/docs/api",
+      "url": "/docs/openai",
       "icons": [
         {
           "src": "/android-chrome-192x192.png",
