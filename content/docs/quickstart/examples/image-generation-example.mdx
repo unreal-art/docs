@@ -1,0 +1,46 @@
+---
+title: Generate an Image (Example)
+description: End-to-end demo of calling the /v1/images/generations endpoint.
+---
+
+import { OPENAI_URL, DISCORD_URL, TELEGRAM_URL } from "../../../config/index"
+
+import img1 from "./images/a-futuristic-city-floating-in-the-clouds--painted-in-pastel-tones_1_00.jpg"
+
+# Generate an Image via `/v1/images/generations`
+
+This walkthrough shows how to create a single image using Unreal OpenAI’s image model.
+
+> 📺 _Video coming soon_  
+> 🖼️ Preview:
+>
+> <img src={img1} alt="Generated image preview" width="400" />
+
+## Request (curl)
+
+```bash
+curl -X POST {OPENAI_URL}/v1/images/generations \
+  -H "Authorization: Bearer <YOUR_API_KEY>" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "prompt": "a futuristic city floating in the clouds, painted in pastel tones",
+    "model": "unreal::playground-v2-5-1024px-aesthetic",
+    "seed": 3
+  }'
+```
+
+### Example response
+
+```jsonc
+{
+  "data": [
+    { "b64_json": "<base-64 image truncated for brevity>" }
+  ]
+}
+```
+
+Once you have the URL, you can embed or download the image as needed. Try adjusting `prompt`, `model`, or `steps` for different results.
+
+---
+
+Need help? Ask in <a href={DISCORD_URL}>Discord</a> or <a href={TELEGRAM_URL}>Telegram</a>.
