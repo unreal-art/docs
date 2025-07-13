@@ -23,40 +23,40 @@ export default defineConfig({
   },
   navigation: [
     {
-      label: 'Unreal AI',
+      label: "Unreal AI",
       tab: true,
       children: [
         {
-          label: 'API Reference',
-          link: '/docs/openai',
+          label: "API Reference",
+          link: "/docs/openai",
           expanded: true,
           children: [
             {
-              label: 'v1',
-              link: '/docs/openai/v1',
+              label: "v1",
+              link: "/docs/openai/v1",
               expanded: true,
             },
           ],
         },
         {
-          label: 'Quickstart',
-          link: '/docs/quickstart',
+          label: "API Playground",
+          link: "/docs/openai",
           expanded: true,
         },
         {
-          label: 'Examples',
-          link: '/examples',
+          label: "Quickstart",
+          link: "/docs/quickstart",
           expanded: true,
         },
         {
-          label: 'Guides',
-          link: '/docs/guides',
+          label: "Examples",
+          link: "/examples",
           expanded: true,
         },
         {
-          label: 'API Playground',
-          link: '/docs/playground',
-          expanded: false,
+          label: "Guides",
+          link: "/docs/guides",
+          expanded: true,
         },
       ],
       expanded: true,
