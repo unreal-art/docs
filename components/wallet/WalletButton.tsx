@@ -39,13 +39,19 @@ export function WalletButton() {
     }
   };
 
-  const buttonStyle = {
+  // Brand palette
+const PRIMARY_COLOR = '#10b981'   // emerald
+const SECONDARY_COLOR = '#6b7280' // gray-600
+const DISABLED_COLOR = '#9ca3af'  // gray-400
+const SUCCESS_COLOR = '#22c55e'   // green-500
+
+const buttonStyle = {
     padding: '0.5rem 1rem',
     borderRadius: '0.375rem',
     fontWeight: 500,
     marginLeft: '0.5rem',
     cursor: 'pointer',
-    backgroundColor: '#2563eb',
+    backgroundColor: PRIMARY_COLOR,
     color: 'white',
     border: 'none',
     transition: 'background-color 0.2s',
@@ -53,20 +59,20 @@ export function WalletButton() {
 
   const secondaryButtonStyle = {
     ...buttonStyle,
-    backgroundColor: '#4b5563',
+    backgroundColor: SECONDARY_COLOR,
   };
 
   const disabledStyle = {
     ...buttonStyle,
-    backgroundColor: '#94a3b8',
+    backgroundColor: DISABLED_COLOR,
     cursor: 'not-allowed',
   };
 
   const outlineStyle = {
     ...buttonStyle,
-    backgroundColor: 'transparent',
-    border: '1px solid #d1d5db',
-    color: '#1f2937',
+    backgroundColor: SUCCESS_COLOR,
+    border: 'none',
+    color: 'white',
   };
 
   const containerStyle = {
