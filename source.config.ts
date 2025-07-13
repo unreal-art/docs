@@ -23,36 +23,43 @@ export default defineConfig({
   },
   navigation: [
     {
-      label: 'API Reference',
-      link: '/docs/openai',
-      expanded: true,
+      label: 'Unreal AI',
+      tab: true,
       children: [
         {
-          label: 'v1',
-          link: '/docs/openai/v1',
+          label: 'API Reference',
+          link: '/docs/openai',
+          expanded: true,
+          children: [
+            {
+              label: 'v1',
+              link: '/docs/openai/v1',
+              expanded: true,
+            },
+          ],
+        },
+        {
+          label: 'Quickstart',
+          link: '/docs/quickstart',
           expanded: true,
         },
+        {
+          label: 'Examples',
+          link: '/examples',
+          expanded: true,
+        },
+        {
+          label: 'Guides',
+          link: '/docs/guides',
+          expanded: true,
+        },
+        {
+          label: 'API Playground',
+          link: '/docs/playground',
+          expanded: false,
+        },
       ],
-    },
-    {
-      label: 'Quickstart',
-      link: '/docs/quickstart',
       expanded: true,
-    },
-    {
-      label: 'Examples',
-      link: '/examples',
-      expanded: true,
-    },
-    {
-      label: 'Guides',
-      link: '/docs/guides',
-      expanded: true,
-    },
-    {
-      label: 'API Playground',
-      link: '/docs/playground',
-      expanded: false,
     },
   ],
 })
