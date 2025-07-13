@@ -1,8 +1,41 @@
 ---
-title: API Reference
+title: API Playground
 description: API documentation for Unreal OpenAI
 ---
 
-# API Reference
+# API Playground
 
-Welcome to the Unreal's OpenAI reference documentation.
+Welcome to the Unreal's OpenAI Playground.
+
+## Authentication
+
+To authenticate with the OpenRouter API, you need to provide your API key when initializing the OpenAI client:
+
+```typescript
+import { OpenAI } from 'openai';
+
+const openai = new OpenAI({
+  apiKey: 'your-openrouter-api-key', // Replace with your actual API key
+  baseURL: OPENAI_URL, // OpenRouter API endpoint
+});
+```
+
+## Making Your First API Call
+
+```typescript
+const completion = await openai.chat.completions.create({
+  model: 'unreal::llama4-scout-instruct-basic',
+  messages: [
+    { role: 'system', content: 'You are a helpful assistant.' },
+    { role: 'user', content: 'Hello, how are you?' }
+  ],
+});
+
+console.log(completion.choices[0].message);
+```
+
+## Next
+
+Explore our [API Reference](/docs/api) for detailed information about all available endpoints and how to use them.
+
+---
