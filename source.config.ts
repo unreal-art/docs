@@ -34,5 +34,17 @@ export default defineConfig({
         },
       ],
     },
+    {
+      label: 'Quickstart',
+      link: '/docs/quickstart',
+      expanded: true,
+      children: [
+        {
+          label: 'Examples',
+          link: '/docs/quickstart/examples',
+          expanded: true,
+        },
+      ],
+    },
   ],
 })
