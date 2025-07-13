@@ -1,10 +1,7 @@
-# syntax=docker.io/docker/dockerfile:1
-
 # Build stage using Bun
-FROM oven/bun:1 AS builder
+FROM oven/bun:1.2.18-alpine AS builder
 WORKDIR /app
 
-# Copy package.json and bun.lock
 COPY package.json bun.lock* ./
 
 # Install dependencies
@@ -19,8 +16,8 @@ ENV NEXT_TELEMETRY_DISABLED=1
 # Build the application
 RUN bun run build
 
-# Production stage using Node 22
-FROM node:22-alpine AS runner
+# Production stage using Bun
+FROM oven/bun:1.2.18-alpine AS runner
 WORKDIR /app
 
 # Set to production environment
@@ -46,5 +43,5 @@ EXPOSE 3000
 ENV PORT=3000
 ENV HOSTNAME="0.0.0.0"
 
-# Start the application
-CMD ["node", "server.js"]
+# Start the application using Bun
+CMD ["bun", "server.js"]
