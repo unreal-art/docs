@@ -802,7 +802,7 @@
         }
       }
     },
-    "/v1/keys/:key": {
+    "/v1/keys/[key]": {
       "get": {
         "summary": "Get API key details",
         "description": "Returns details for a specific API key",
