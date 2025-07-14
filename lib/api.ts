@@ -140,7 +140,11 @@ export class UnrealApiClient {
   }
 
   async verifyToken(token: string): Promise<VerifyResponse> {
-    const response = await openaiClient.get(`/auth/verify?token=${token}`)
+    const response = await openaiClient.get(`/auth/verify`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    })
     return response.data
   }
 
@@ -226,13 +230,13 @@ export class WalletService {
       return false
     }
   }
-  
+
   // Disconnect wallet
   async disconnect(): Promise<void> {
     // Reset internal state
     this.walletClient = null
     this.account = null
-    
+
     // Note: Most wallets don't support programmatic disconnection
     // We're just clearing our local state here
     // The wallet connection in the browser remains until the user disconnects manually
