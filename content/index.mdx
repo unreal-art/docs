@@ -3,6 +3,8 @@ title: Unreal OpenAI Documentation
 description: Documentation for Unreal OpenAI API (OpenAI SDK compatible)
 ---
 
+import { OPENAI_BASE_URL } from "@config/index"
+
 # Unreal OpenAI Documentation
 
 Welcome to the Unreal OpenAI documentation. This documentation provides comprehensive information about the Unreal OpenAI API, which is compatible with the OpenAI SDK.
@@ -33,7 +35,7 @@ import { OpenAI } from 'openai';
 
 const openai = new OpenAI({
   apiKey: 'your-api-key',
-  baseURL: 'https://openrouter.ai/api', // Replace with your OpenRouter endpoint
+  baseURL: {{OPENAI_BASE_URL}}, // Replace with your OpenRouter endpoint
 });
 
 async function main() {
