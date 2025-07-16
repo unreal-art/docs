@@ -3,7 +3,7 @@ title: Advanced Features
 description: Learn about advanced features of the Unreal OpenAI API
 ---
 
-import { OPENAI_URL } from "../../../config/index"
+import { OPENAI_BASE_URL } from "@config/index"
 
 # Advanced Features
 
@@ -18,7 +18,7 @@ import { OpenAI } from 'openai';
 
 const openai = new OpenAI({
   apiKey: 'your-unreal-api-key',
-  baseURL: OPENAI_URL,
+  baseURL: OPENAI_BASE_URL,
 });
 
 async function streamCompletion() {
