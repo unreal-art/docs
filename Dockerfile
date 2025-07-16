@@ -4,11 +4,10 @@ WORKDIR /app
 
 COPY package.json bun.lock* ./
 
+COPY . .
+
 # Install dependencies
 RUN bun install
-
-# Copy the rest of the application
-COPY . .
 
 # Disable telemetry during build
 ENV NEXT_TELEMETRY_DISABLED=1
