@@ -12,6 +12,7 @@ RUN bun install
 # Disable telemetry during build
 ENV NEXT_TELEMETRY_DISABLED=1
 
+ENV NEXT_OUTPUT_MODE="standalone"
 # Build the application
 RUN bun run build
 

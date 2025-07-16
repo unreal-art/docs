@@ -4,11 +4,12 @@ const withMDX = createMDX()
 
 /** @type {import('next').NextConfig} */
 const config = {
-  output: "standalone",
+  output: process.env.NEXT_OUTPUT_MODE,
   reactStrictMode: true,
   // Disable ESLint during build to prevent build failures
   eslint: {
-    // Warning rather than error during build
+    // Warning rather than
+    //  error during build
     ignoreDuringBuilds: true,
   },
   pageExtensions: ["js", "jsx", "ts", "tsx", "md", "mdx"],
