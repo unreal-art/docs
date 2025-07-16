@@ -4,7 +4,7 @@ const withMDX = createMDX()
 
 /** @type {import('next').NextConfig} */
 const config = {
-  // try: default
+  output: process.env.NEXT_OUTPUT_MODE,
   reactStrictMode: true,
   // Disable ESLint during build to prevent build failures
   eslint: {
