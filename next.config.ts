@@ -10,6 +10,8 @@ const config = {
     // Warning rather than error during build
     ignoreDuringBuilds: true,
   },
+  pageExtensions: ["js", "jsx", "ts", "tsx", "md", "mdx"],
+
   webpack: (config, { isServer }) => {
     // If client-side, don't polyfill or include server-only modules
     if (!isServer) {

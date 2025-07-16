@@ -16,9 +16,8 @@
     "jsx": "preserve",
     "incremental": true,
     "paths": {
-      "@/.source": ["./.source/index.ts"],
       "@/*": ["./*"],
-      "@/config/*": ["./config/*"]
+      "@config/*": ["./config/*"]
     },
     "plugins": [
       {
