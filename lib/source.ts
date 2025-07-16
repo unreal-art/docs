@@ -5,7 +5,9 @@ import { createOpenAPI } from "fumadocs-openapi/server"
 // See https://fumadocs.vercel.app/docs/headless/source-api for more info
 export const source = loader({
   // it assigns a URL to your pages
-  baseUrl: "/docs",
+  // Serve docs from root path
+  // If you later deploy under a sub-directory, adjust here accordingly.
+  baseUrl: "/",
   source: docs.toFumadocsSource(),
 })
 
