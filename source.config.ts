@@ -8,7 +8,7 @@ import {
 // You can customise Zod schemas for frontmatter and `meta.json` here
 // see https://fumadocs.vercel.app/docs/mdx/collections#define-docs
 export const docs = defineDocs({
-  dir: "content/docs",
+  dir: "content",
   docs: {
     schema: frontmatterSchema,
   },
@@ -21,45 +21,4 @@ export default defineConfig({
   mdxOptions: {
     // MDX options
   },
-  navigation: [
-    {
-      label: "Unreal AI",
-      tab: true,
-      children: [
-        {
-          label: "API Reference",
-          link: "/docs/openai",
-          expanded: true,
-          children: [
-            {
-              label: "v1",
-              link: "/docs/openai/v1",
-              expanded: true,
-            },
-          ],
-        },
-        {
-          label: "API Playground",
-          link: "/docs/openai",
-          expanded: true,
-        },
-        {
-          label: "Quickstart",
-          link: "/docs/quickstart",
-          expanded: true,
-        },
-        {
-          label: "Examples",
-          link: "/examples",
-          expanded: true,
-        },
-        {
-          label: "Guides",
-          link: "/docs/guides",
-          expanded: true,
-        },
-      ],
-      expanded: true,
-    },
-  ],
 })
