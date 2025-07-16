@@ -4,6 +4,7 @@ const withMDX = createMDX()
 
 /** @type {import('next').NextConfig} */
 const config = {
+  output: "standalone",
   reactStrictMode: true,
   // Disable ESLint during build to prevent build failures
   eslint: {

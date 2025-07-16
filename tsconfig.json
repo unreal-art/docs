@@ -31,7 +31,8 @@
     "**/*.tsx",
     ".next/types/**/*.ts",
     "scripts/generate-docs.mjs",
-    "scripts/gen-docs.ts"
+    "scripts/gen-docs.ts",
+    "next.config.mjs"
   ],
   "exclude": ["node_modules"]
 }
