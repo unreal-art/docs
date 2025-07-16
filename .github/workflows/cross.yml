@@ -26,7 +26,7 @@ concurrency:
 jobs:
   cross:
     strategy:
-      max-parallel: 4
+      max-parallel: 2
       fail-fast: false
       matrix:
         #        arch: [ x64, arm, arm64 ]
