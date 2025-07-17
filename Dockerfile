@@ -1,5 +1,5 @@
 # Build stage using Bun
-FROM oven/bun:1.2.18-alpine AS builder
+FROM oven/bun:alpine AS builder
 WORKDIR /app
 
 COPY package.json bun.lock* ./
@@ -17,7 +17,7 @@ ENV NEXT_OUTPUT_MODE="standalone"
 RUN bun run build
 
 # Production stage using Bun
-FROM oven/bun:1.2.18-alpine AS runner
+FROM oven/bun:alpine AS runner
 WORKDIR /app
 
 # Set to production environment
