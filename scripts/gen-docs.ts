@@ -5,7 +5,7 @@ void generateFiles({
     // "https://openai.unreal.art/openapi.json"
     "./openai.spec.json",
   ],
-  output: "./docs/openai",
+  output: "./content/openai",
   // we recommend to enable it
   // make sure your endpoint description doesn't break MDX syntax.
   includeDescription: true,
