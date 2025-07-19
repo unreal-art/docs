@@ -9,5 +9,6 @@ void generateFiles({
   // we recommend to enable it
   // make sure your endpoint description doesn't break MDX syntax.
   includeDescription: true,
-  groupBy: "route",
+  // FIXME: https://github.com/fuma-nama/fumadocs/issues/2085
+  // groupBy: "route",
 })
