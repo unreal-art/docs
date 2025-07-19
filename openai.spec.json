@@ -809,6 +809,14 @@
         "tags": [
           "API Keys"
         ],
+        "parameters": [
+          {
+            "name": "key",
+            "in": "path",
+            "required": true,
+            "description": "API key to retrieve details for"
+          }
+        ],
         "responses": {
           "200": {
             "description": "API key details",
@@ -881,6 +889,14 @@
         "description": "Deletes a specific API key",
         "tags": [
           "API Keys"
+        ],
+        "parameters": [
+          {
+            "name": "key",
+            "in": "path",
+            "required": true,
+            "description": "API key to delete"
+          }
         ],
         "responses": {
           "200": {
