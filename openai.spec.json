@@ -500,6 +500,7 @@
         "tags": [
           "Authentication"
         ],
+        "parameters": [],
         "responses": {
           "200": {
             "description": "Token verification successful",
@@ -813,8 +814,11 @@
           {
             "name": "key",
             "in": "path",
+            "description": "API key hash or ID",
             "required": true,
-            "description": "API key to retrieve details for"
+            "schema": {
+              "type": "string"
+            }
           }
         ],
         "responses": {
@@ -894,8 +898,11 @@
           {
             "name": "key",
             "in": "path",
+            "description": "API key hash or ID",
             "required": true,
-            "description": "API key to delete"
+            "schema": {
+              "type": "string"
+            }
           }
         ],
         "responses": {
