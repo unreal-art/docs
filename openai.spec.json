@@ -6,22 +6,13 @@
     "description": "API documentation for Unreal OpenAI Router"
   },
   "servers": [
-    {
-      "url": "https://openai.unreal.art"
-    },
+    { "url": "https://openai.unreal.art" },
     {
       "url": "{protocol}://void.scalar.com/{path}",
       "description": "Responds with your request data",
       "variables": {
-        "protocol": {
-          "enum": [
-            "https"
-          ],
-          "default": "https"
-        },
-        "path": {
-          "default": ""
-        }
+        "protocol": { "enum": ["https"], "default": "https" },
+        "path": { "default": "" }
       }
     }
   ],
@@ -30,19 +21,14 @@
       "post": {
         "summary": "Create chat completion",
         "description": "Creates a completion for the chat message",
-        "tags": [
-          "Chat"
-        ],
+        "tags": ["Chat"],
         "requestBody": {
           "description": "Chat completion request parameters",
           "content": {
             "application/json": {
               "schema": {
                 "type": "object",
-                "required": [
-                  "model",
-                  "messages"
-                ],
+                "required": ["model", "messages"],
                 "properties": {
                   "model": {
                     "type": "string",
@@ -54,19 +40,11 @@
                     "description": "Array of messages in the conversation",
                     "items": {
                       "type": "object",
-                      "required": [
-                        "role",
-                        "content"
-                      ],
+                      "required": ["role", "content"],
                       "properties": {
                         "role": {
                           "type": "string",
-                          "enum": [
-                            "system",
-                            "user",
-                            "assistant",
-                            "function"
-                          ],
+                          "enum": ["system", "user", "assistant", "function"],
                           "description": "Role of the message sender"
                         },
                         "content": {
@@ -121,15 +99,10 @@
                   },
                   "stop": {
                     "oneOf": [
-                      {
-                        "type": "string",
-                        "description": "A stop sequence"
-                      },
+                      { "type": "string", "description": "A stop sequence" },
                       {
                         "type": "array",
-                        "items": {
-                          "type": "string"
-                        },
+                        "items": { "type": "string" },
                         "description": "List of stop sequences"
                       }
                     ],
@@ -147,6 +120,28 @@
         "responses": {
           "200": {
             "description": "Successful completion",
+            "headers": {
+              "X-Unreal-Tx-Hash": {
+                "description": "Blockchain transaction hash for the payment",
+                "schema": { "type": "string" }
+              },
+              "X-Unreal-Tx-Price": {
+                "description": "Price paid for the transaction in UNREAL tokens",
+                "schema": { "type": "string" }
+              },
+              "X-Unreal-Chain-Id": {
+                "description": "Blockchain chain ID where the transaction was executed",
+                "schema": { "type": "string" }
+              },
+              "X-Unreal-Calls-Remaining": {
+                "description": "Number of API calls remaining in the user quota",
+                "schema": { "type": "string" }
+              },
+              "X-Unreal-Tx-Block": {
+                "description": "Block number where the transaction was confirmed",
+                "schema": { "type": "string" }
+              }
+            },
             "content": {
               "application/json": {
                 "schema": {
@@ -283,20 +278,14 @@
       "post": {
         "summary": "Register for API access",
         "description": "Register a wallet for API access by providing a signed payload and optional permit",
-        "tags": [
-          "Authentication"
-        ],
+        "tags": ["Authentication"],
         "requestBody": {
           "description": "Registration details including signed payload and wallet address",
           "content": {
             "application/json": {
               "schema": {
                 "type": "object",
-                "required": [
-                  "payload",
-                  "signature",
-                  "address"
-                ],
+                "required": ["payload", "signature", "address"],
                 "properties": {
                   "payload": {
                     "type": "object",
@@ -497,18 +486,14 @@
       "get": {
         "summary": "Verify API token",
         "description": "Verify an API token and return associated wallet information",
-        "tags": [
-          "Authentication"
-        ],
+        "tags": ["Authentication"],
         "parameters": [
           {
             "name": "token",
             "in": "query",
             "description": "API token for verification (alternative to Authorization header or cookie)",
             "required": false,
-            "schema": {
-              "type": "string"
-            }
+            "schema": { "type": "string" }
           }
         ],
         "responses": {
@@ -528,10 +513,7 @@
                       "description": "Number of API calls remaining"
                     },
                     "originalJwt": {
-                      "type": [
-                        "string",
-                        "null"
-                      ],
+                      "type": ["string", "null"],
                       "description": "Original JWT if applicable"
                     },
                     "paymentToken": {
@@ -586,9 +568,7 @@
       "get": {
         "summary": "Get OpenAI service address",
         "description": "Returns the OpenAI service wallet address and chain information",
-        "tags": [
-          "Authentication"
-        ],
+        "tags": ["Authentication"],
         "responses": {
           "200": {
             "description": "OpenAI service address information",
@@ -646,18 +626,14 @@
       "post": {
         "summary": "Create API key",
         "description": "Creates a new API key for the authenticated wallet",
-        "tags": [
-          "API Keys"
-        ],
+        "tags": ["API Keys"],
         "requestBody": {
           "description": "API key creation parameters",
           "content": {
             "application/json": {
               "schema": {
                 "type": "object",
-                "required": [
-                  "name"
-                ],
+                "required": ["name"],
                 "properties": {
                   "name": {
                     "type": "string",
@@ -680,10 +656,7 @@
                 "schema": {
                   "type": "object",
                   "properties": {
-                    "key": {
-                      "type": "string",
-                      "description": "The API key"
-                    },
+                    "key": { "type": "string", "description": "The API key" },
                     "hash": {
                       "type": "string",
                       "description": "Hash of the API key"
@@ -771,9 +744,7 @@
       "get": {
         "summary": "Get all API keys",
         "description": "Returns all API keys for the authenticated wallet",
-        "tags": [
-          "API Keys"
-        ],
+        "tags": ["API Keys"],
         "responses": {
           "200": {
             "description": "List of API keys",
@@ -784,9 +755,7 @@
                   "properties": {
                     "keys": {
                       "type": "array",
-                      "items": {
-                        "type": "string"
-                      },
+                      "items": { "type": "string" },
                       "description": "List of API keys"
                     }
                   }
@@ -817,18 +786,14 @@
       "get": {
         "summary": "Get API key details",
         "description": "Returns details for a specific API key",
-        "tags": [
-          "API Keys"
-        ],
+        "tags": ["API Keys"],
         "parameters": [
           {
             "name": "key",
             "in": "path",
             "description": "API key hash or ID",
             "required": true,
-            "schema": {
-              "type": "string"
-            }
+            "schema": { "type": "string" }
           }
         ],
         "responses": {
@@ -901,18 +866,14 @@
       "delete": {
         "summary": "Delete API key",
         "description": "Deletes a specific API key",
-        "tags": [
-          "API Keys"
-        ],
+        "tags": ["API Keys"],
         "parameters": [
           {
             "name": "key",
             "in": "path",
             "description": "API key hash or ID",
             "required": true,
-            "schema": {
-              "type": "string"
-            }
+            "schema": { "type": "string" }
           }
         ],
         "responses": {
@@ -971,18 +932,14 @@
       "post": {
         "summary": "Create images",
         "description": "Creates an image given a prompt",
-        "tags": [
-          "Images"
-        ],
+        "tags": ["Images"],
         "requestBody": {
           "description": "Image generation request parameters",
           "content": {
             "application/json": {
               "schema": {
                 "type": "object",
-                "required": [
-                  "prompt"
-                ],
+                "required": ["prompt"],
                 "properties": {
                   "prompt": {
                     "type": "string",
@@ -1014,10 +971,7 @@
                   },
                   "response_format": {
                     "type": "string",
-                    "enum": [
-                      "url",
-                      "b64_json"
-                    ],
+                    "enum": ["url", "b64_json"],
                     "description": "Format in which the generated images are returned",
                     "default": "url"
                   },
@@ -1033,6 +987,28 @@
         "responses": {
           "200": {
             "description": "Successful image generation",
+            "headers": {
+              "X-Unreal-Tx-Hash": {
+                "description": "Blockchain transaction hash for the payment",
+                "schema": { "type": "string" }
+              },
+              "X-Unreal-Tx-Price": {
+                "description": "Price paid for the transaction in UNREAL tokens",
+                "schema": { "type": "string" }
+              },
+              "X-Unreal-Chain-Id": {
+                "description": "Blockchain chain ID where the transaction was executed",
+                "schema": { "type": "string" }
+              },
+              "X-Unreal-Calls-Remaining": {
+                "description": "Number of API calls remaining in the user quota",
+                "schema": { "type": "string" }
+              },
+              "X-Unreal-Tx-Block": {
+                "description": "Block number where the transaction was confirmed",
+                "schema": { "type": "string" }
+              }
+            },
             "content": {
               "application/json": {
                 "schema": {
@@ -1111,18 +1087,14 @@
       "post": {
         "summary": "Generate video from text prompt",
         "description": "Create an async video generation job using advanced AI models. Returns a job ID for status polling.",
-        "tags": [
-          "Videos"
-        ],
+        "tags": ["Videos"],
         "requestBody": {
           "description": "Video generation request",
           "content": {
             "application/json": {
               "schema": {
                 "type": "object",
-                "required": [
-                  "prompt"
-                ],
+                "required": ["prompt"],
                 "properties": {
                   "prompt": {
                     "type": "string",
@@ -1131,36 +1103,15 @@
                   },
                   "model": {
                     "type": "string",
-                    "enum": [
-                      "unreal::reel",
-                      "unreal::reel-v1"
-                    ],
+                    "enum": ["unreal::reel", "unreal::reel-v1"],
                     "description": "Video generation model to use",
                     "default": "unreal::reel"
                   },
                   "duration": {
                     "type": "number",
                     "enum": [
-                      6,
-                      12,
-                      18,
-                      24,
-                      30,
-                      36,
-                      42,
-                      48,
-                      54,
-                      60,
-                      66,
-                      72,
-                      78,
-                      84,
-                      90,
-                      96,
-                      102,
-                      108,
-                      114,
-                      120
+                      6, 12, 18, 24, 30, 36, 42, 48, 54, 60, 66, 72, 78, 84, 90,
+                      96, 102, 108, 114, 120
                     ],
                     "description": "Video duration in seconds. Available durations depend on the selected model.",
                     "default": 6,
@@ -1174,6 +1125,28 @@
         "responses": {
           "202": {
             "description": "Video generation job created successfully",
+            "headers": {
+              "X-Unreal-Tx-Hash": {
+                "description": "Blockchain transaction hash for the payment",
+                "schema": { "type": "string" }
+              },
+              "X-Unreal-Tx-Price": {
+                "description": "Price paid for the transaction in UNREAL tokens",
+                "schema": { "type": "string" }
+              },
+              "X-Unreal-Chain-Id": {
+                "description": "Blockchain chain ID where the transaction was executed",
+                "schema": { "type": "string" }
+              },
+              "X-Unreal-Calls-Remaining": {
+                "description": "Number of API calls remaining in the user quota",
+                "schema": { "type": "string" }
+              },
+              "X-Unreal-Tx-Block": {
+                "description": "Block number where the transaction was confirmed",
+                "schema": { "type": "string" }
+              }
+            },
             "content": {
               "application/json": {
                 "schema": {
@@ -1187,9 +1160,7 @@
                     },
                     "status": {
                       "type": "string",
-                      "enum": [
-                        "queued"
-                      ],
+                      "enum": ["queued"],
                       "description": "Initial job status"
                     },
                     "createdAt": {
@@ -1198,11 +1169,7 @@
                       "description": "Job creation timestamp"
                     }
                   },
-                  "required": [
-                    "jobId",
-                    "status",
-                    "createdAt"
-                  ]
+                  "required": ["jobId", "status", "createdAt"]
                 }
               }
             }
@@ -1250,9 +1217,7 @@
       "get": {
         "summary": "Get video generation job status",
         "description": "Poll the status of a video generation job and retrieve the video URL when complete.",
-        "tags": [
-          "Videos"
-        ],
+        "tags": ["Videos"],
         "parameters": [
           {
             "name": "jobId",
@@ -1281,12 +1246,7 @@
                     },
                     "status": {
                       "type": "string",
-                      "enum": [
-                        "queued",
-                        "processing",
-                        "completed",
-                        "failed"
-                      ],
+                      "enum": ["queued", "processing", "completed", "failed"],
                       "description": "Current job status"
                     },
                     "createdAt": {
@@ -1315,22 +1275,14 @@
                           "example": "https://r2.openai.unreal.art/1a4f582a-3c34-4c1b-97c6-565bd6af426f/video.mp4"
                         }
                       },
-                      "required": [
-                        "s3",
-                        "url"
-                      ]
+                      "required": ["s3", "url"]
                     },
                     "error": {
                       "type": "string",
                       "description": "Error message (only present when status is failed)"
                     }
                   },
-                  "required": [
-                    "jobId",
-                    "status",
-                    "createdAt",
-                    "updatedAt"
-                  ]
+                  "required": ["jobId", "status", "createdAt", "updatedAt"]
                 }
               }
             }
@@ -1342,10 +1294,7 @@
                 "schema": {
                   "type": "object",
                   "properties": {
-                    "error": {
-                      "type": "string",
-                      "example": "Job not found"
-                    }
+                    "error": { "type": "string", "example": "Job not found" }
                   }
                 }
               }
@@ -1374,9 +1323,7 @@
       "get": {
         "summary": "List models",
         "description": "Lists the currently available models, and provides basic information about each one such as the owner and availability.",
-        "tags": [
-          "Models"
-        ],
+        "tags": ["Models"],
         "responses": {
           "200": {
             "description": "List of available models",
@@ -1387,9 +1334,7 @@
                   "properties": {
                     "object": {
                       "type": "string",
-                      "enum": [
-                        "list"
-                      ],
+                      "enum": ["list"],
                       "description": "Object type"
                     },
                     "data": {
@@ -1404,9 +1349,7 @@
                           },
                           "object": {
                             "type": "string",
-                            "enum": [
-                              "model"
-                            ],
+                            "enum": ["model"],
                             "description": "Object type"
                           },
                           "created": {
@@ -1464,9 +1407,7 @@
       "get": {
         "summary": "Health check endpoint",
         "description": "Returns health status for all configured providers",
-        "tags": [
-          "System"
-        ],
+        "tags": ["System"],
         "responses": {
           "200": {
             "description": "Health status for all providers",
@@ -1505,9 +1446,7 @@
       "get": {
         "summary": "Claim UNREAL token airdrop",
         "description": "Gives a one-time 50 $UNREAL airdrop to the authenticated wallet",
-        "tags": [
-          "Web3"
-        ],
+        "tags": ["Web3"],
         "responses": {
           "200": {
             "description": "Airdrop transaction information",
@@ -1576,25 +1515,15 @@
       "get": {
         "summary": "Root endpoint",
         "description": "Returns a welcome message from the Unreal OpenAI Router",
-        "tags": [
-          "System"
-        ],
+        "tags": ["System"],
         "responses": {
           "200": {
             "description": "Welcome message",
-            "content": {
-              "text/plain": {
-                "schema": {
-                  "type": "string"
-                }
-              }
-            }
+            "content": { "text/plain": { "schema": { "type": "string" } } }
           }
         }
       }
     }
   },
-  "components": {
-    "schemas": {}
-  }
+  "components": { "schemas": {} }
 }
