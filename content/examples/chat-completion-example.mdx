@@ -16,7 +16,7 @@ curl -X POST https://openai.unreal.art/v1/chat/completions \
   -H "Authorization: Bearer <YOUR_API_KEY>" \
   -H "Content-Type: application/json" \
   -d '{
-    "model": "unreal::r1-1776",
+    "model": "r1-1776",
     "messages": [
       { "role": "user", "content": "Explain quantum computing in simple terms" }
     ]
@@ -30,7 +30,7 @@ curl -X POST https://openai.unreal.art/v1/chat/completions \
   "id": "chatcmpl-123abc456def789",
   "object": "chat.completion",
   "created": 1694268762,
-  "model": "unreal::r1-1776",
+  "model": "r1-1776",
   "choices": [
     {
       "index": 0,
@@ -53,7 +53,7 @@ curl -X POST https://openai.unreal.art/v1/chat/completions \
 
 | Parameter | Type | Description |
 |-----------|------|-------------|
-| `model` | string | **Required**. ID of the model to use (e.g., `unreal::r1-1776`) |
+| `model` | string | **Required**. ID of the model to use (e.g., `r1-1776`) |
 | `messages` | array | **Required**. Array of message objects with `role` and `content` |
 | `temperature` | number | Controls randomness (0-2, default: 1) |
 | `max_tokens` | integer | Maximum tokens to generate (default varies by model) |
@@ -67,7 +67,7 @@ Include the complete conversation history to maintain context:
 
 ```jsonc
 {
-  "model": "unreal::mixtral-8x22b-instruct",
+  "model": "mixtral-8x22b-instruct",
   "messages": [
     { "role": "user", "content": "What's the weather like today?" },
     { "role": "assistant", "content": "I don't have access to real-time weather data." },
@@ -85,7 +85,7 @@ curl -X POST https://openai.unreal.art/v1/chat/completions \
   -H "Authorization: Bearer <YOUR_API_KEY>" \
   -H "Content-Type: application/json" \
   -d '{
-    "model": "unreal::mixtral-8x22b-instruct",
+    "model": "mixtral-8x22b-instruct",
     "messages": [{ "role": "user", "content": "Hello" }],
     "stream": true
   }'
@@ -94,7 +94,7 @@ curl -X POST https://openai.unreal.art/v1/chat/completions \
 Streamed responses are delivered as server-sent events:
 
 ```jsonc
-data: {"id":"chatcmpl-123","object":"chat.completion.chunk","created":1694268762,"model":"unreal::mixtral-8x22b-instruct","choices":[{"index":0,"delta":{"role":"assistant","content":"Hello"},"finish_reason":null}]}
+data: {"id":"chatcmpl-123","object":"chat.completion.chunk","created":1694268762,"model":"mixtral-8x22b-instruct","choices":[{"index":0,"delta":{"role":"assistant","content":"Hello"},"finish_reason":null}]}
 ```
 
 ---

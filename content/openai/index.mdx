@@ -24,7 +24,7 @@ const openai = new OpenAI({
 
 ```typescript
 const completion = await openai.chat.completions.create({
-  model: 'unreal::llama4-scout-instruct-basic',
+  model: 'llama4-scout-instruct-basic',
   messages: [
     { role: 'system', content: 'You are a helpful assistant.' },
     { role: 'user', content: 'Hello, how are you?' }
