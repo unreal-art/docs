@@ -19,7 +19,7 @@ RUN bun run build
 # Production stage using Bun
 FROM oven/bun:alpine AS runner
 WORKDIR /app
-
+ 
 # Set to production environment
 ENV NODE_ENV=production
 ENV NEXT_TELEMETRY_DISABLED=1

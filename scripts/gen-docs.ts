@@ -9,7 +9,7 @@ const p = "content/openai"
 void generateFiles({
   // the OpenAPI schema, you can also give it an external URL.
   input: [
-    // "https://openai.unreal.art/openapi.json"
+    // "https://openai.ideomind.org/openapi.json"
     "./openai.spec.json",
   ],
   output: p,

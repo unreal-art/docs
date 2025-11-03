@@ -91,7 +91,7 @@ Updates to the OpenAI Router are automatically reflected in the documentation th
 
 ## 🌐 Deployment
 
-The documentation is deployed at [docs.unreal.art/api](https://docs.unreal.art/api) and is automatically updated when changes are pushed to the main branch.
+The documentation is deployed at [docs.ideomind.org/api](https://docs.ideomind.org/api) and is automatically updated when changes are pushed to the main branch.
 
 ---
 

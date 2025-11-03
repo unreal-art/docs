@@ -20,7 +20,7 @@ Create and manage API keys to securely access Unreal's AI services. API keys pro
 Create a named API key with a simple POST request:
 
 ```bash
-curl -X POST https://openai.unreal.art/v1/keys \
+curl -X POST https://openai.ideomind.org/v1/keys \
   -H "Authorization: Bearer <YOUR_SESSION_TOKEN>" \
   -H "Content-Type: application/json" \
   -d '{
@@ -46,7 +46,7 @@ curl -X POST https://openai.unreal.art/v1/keys \
 View all your active API keys:
 
 ```bash
-curl -X GET https://openai.unreal.art/v1/keys \
+curl -X GET https://openai.ideomind.org/v1/keys \
   -H "Authorization: Bearer <YOUR_SESSION_TOKEN>"
 ```
 
@@ -74,7 +74,7 @@ curl -X GET https://openai.unreal.art/v1/keys \
 Retrieve detailed information about a specific API key:
 
 ```bash
-curl -X GET https://openai.unreal.art/v1/keys/<KEY_OR_HASH_ID> \
+curl -X GET https://openai.ideomind.org/v1/keys/<KEY_OR_HASH_ID> \
   -H "Authorization: Bearer <YOUR_SESSION_TOKEN>"
 ```
 
@@ -97,7 +97,7 @@ curl -X GET https://openai.unreal.art/v1/keys/<KEY_OR_HASH_ID> \
 Revoke an API key when it's no longer needed or compromised:
 
 ```bash
-curl -X DELETE https://openai.unreal.art/v1/keys/<KEY_OR_HASH_ID> \
+curl -X DELETE https://openai.ideomind.org/v1/keys/<KEY_OR_HASH_ID> \
   -H "Authorization: Bearer <YOUR_SESSION_TOKEN>"
 ```
 
@@ -122,7 +122,7 @@ curl -X DELETE https://openai.unreal.art/v1/keys/<KEY_OR_HASH_ID> \
 Use your API key to authenticate requests to any Unreal API endpoint:
 
 ```bash
-curl -X POST https://openai.unreal.art/v1/chat/completions \
+curl -X POST https://openai.ideomind.org/v1/chat/completions \
   -H "Authorization: Bearer <YOUR_API_KEY>" \
   -H "Content-Type: application/json" \
   -d '{

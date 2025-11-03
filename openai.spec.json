@@ -6,7 +6,7 @@
     "description": "API documentation for Unreal OpenAI Router"
   },
   "servers": [
-    { "url": "https://openai.unreal.art" },
+    { "url": "https://openai.ideomind.org" },
     { "url": "http://localhost:8787" },
     {
       "url": "{protocol}://void.scalar.com/{path}",
@@ -1626,13 +1626,13 @@
                         "s3": {
                           "type": "string",
                           "description": "S3 source path (internal)",
-                          "example": "s3://openai.unreal.art/videos/job-id/invocation-id/output.mp4"
+                          "example": "s3://openai.ideomind.org/videos/job-id/invocation-id/output.mp4"
                         },
                         "url": {
                           "type": "string",
                           "format": "uri",
                           "description": "Public R2 URL for direct access",
-                          "example": "https://r2.openai.unreal.art/1a4f582a-3c34-4c1b-97c6-565bd6af426f/video.mp4"
+                          "example": "https://r2.openai.ideomind.org/1a4f582a-3c34-4c1b-97c6-565bd6af426f/video.mp4"
                         }
                       },
                       "required": ["s3", "url"]

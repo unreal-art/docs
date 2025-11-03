@@ -17,14 +17,14 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Unreal OpenAI Documentation",
     description: "Documentation for Unreal OpenAI API (OpenAI SDK compatible)",
-    images: ["https://docs.unreal.art/logo.webp"],
+    images: ["https://docs.ideomind.org/logo.webp"],
     type: "website",
   },
   twitter: {
     card: "summary_large_image",
     title: "Unreal OpenAI Documentation",
     description: "Documentation for Unreal OpenAI API (OpenAI SDK compatible)",
-    images: ["https://docs.unreal.art/logo.webp"],
+    images: ["https://docs.ideomind.org/logo.webp"],
   },
   icons: {
     icon: [
